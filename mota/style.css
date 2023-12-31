@@ -7,3 +7,195 @@ Version: 1.0
 Tag: photo
 */
 
+/* Fonts SpaceMono */
+@font-face {
+    font-family: 'spacemono';
+    src: url('./assets/fonts/spacemono/SpaceMono-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'spacemono';
+    src: url('./assets/fonts/spacemono/SpaceMono-BoldItalic.ttf') format('truetype');
+    font-weight: 700;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'SpaceMono';
+    src: url('./assets/fonts/spacemono/SpaceMono-Italic.ttf') format('truetype');
+    font-weight: 400;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'SpaceMono';
+    src: url('./assets/fonts/spacemono/SpaceMono-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* Fonts Poppins*/
+@font-face {
+    font-family: 'poppins';
+    src: url('./assets/fonts/poppins/Poppins-ThinItalic.ttf') format('truetype');
+    font-weight: 100;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'poppins';
+    src: url('./assets/fonts/poppins/Poppins-Thin.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'poppins';
+    src: url('./assets/fonts/poppins/Poppins-SemiBoldItalic.ttf') format('truetype');
+    font-weight: 600;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'poppins';
+    src: url('./assets/fonts/poppins/Poppins-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'poppins';
+    src: url('./assets/fonts/poppins/Poppins-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'poppins';
+    src: url('./assets/fonts/poppins/Poppins-MediumItalic.ttf') format('truetype');
+    font-weight: 500;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'poppins';
+    src: url('./assets/fonts/poppins/Poppins-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'poppins';
+    src: url('./assets/fonts/poppins/Poppins-LightItalic.ttf') format('truetype');
+    font-weight: 300;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'poppins';
+    src: url('./assets/fonts/poppins/Poppins-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'poppins';
+    src: url('./assets/fonts/poppins/Poppins-Italic.ttf') format('truetype');
+    font-weight: 400;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'poppins';
+    src: url('./assets/fonts/poppins/Poppins-ExtraLightItalic.ttf') format('truetype');
+    font-weight: 200;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'poppins';
+    src: url('./assets/fonts/poppins/Poppins-ExtraLight.ttf') format('truetype');
+    font-weight: 200;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'poppins';
+    src: url('./assets/fonts/poppins/Poppins-ExtraBoldItalic.ttf') format('truetype');
+    font-weight: 800;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'poppins';
+    src: url('./assets/fonts/poppins/Poppins-ExtraBold.ttf') format('truetype');
+    font-weight: 800;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'poppins';
+    src: url('./assets/fonts/poppins/Poppins-BoldItalic.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'poppins';
+    src: url('./assets/fonts/poppins/Poppins-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'poppins';
+    src: url('./assets/fonts/poppins/Poppins-BlackItalic.ttf') format('truetype');
+    font-weight: 900;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'poppins';
+    src: url('./assets/fonts/poppins/Poppins-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+}
+
+html {
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+/** header **/
+header,footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-family: "spacemono";
+    font-weight: 400;
+    font-size: 16px;
+    height: 80px;
+}
+
+img.logo{
+    position: relative;
+    left: 146px;
+}
+
+#menu-header, #menu-footer{
+    display: flex;
+    flex-direction: row;
+}
+
+#menu-header li,
+#menu-footer li {
+    font-family: "SpaceMono";
+    list-style-type: none;
+    margin-right: 40px;
+    color: black;
+}
+
+#menu-header li a,
+#menu-footer li a{
+    text-decoration: none;
+    color: #000000;
+}
+
+#menu-header li a:hover,
+#menu-footer li a:hover{
+    color: #E00000;
+}
+
+footer{
+    justify-content: center !important;
+    height: 40px !important;
+    border-top : 1px solid black;
+}
+
+
+
+
+
