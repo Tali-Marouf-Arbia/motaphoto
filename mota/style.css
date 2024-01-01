@@ -148,6 +148,10 @@ html {
     margin: 0 auto;
 }
 
+.content{
+    height: 100vh;
+}
+
 /** header **/
 header,footer{
     display: flex;
@@ -161,8 +165,13 @@ header,footer{
 }
 
 img.logo{
-    position: relative;
-    left: 146px;
+    margin-left: 40px;
+}
+
+#menu-btn,
+.menu-open,
+#menu-btn-2 {
+    display: none;
 }
 
 #menu-header, #menu-footer{
@@ -195,7 +204,100 @@ footer{
     border-top : 1px solid black;
 }
 
+/*************************************** gestion du header et footer en mobile *********************************************************/
+@media screen and (max-width: 800px) {
+    /**HEADER**/
+    #menu-header {
+        display: none;
+    }
+
+    #menu-footer {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    #menu-footer li {
+        padding-bottom: 15px;
+        font-size : 16px;
+    }
+
+    #menu-btn, #menu-btn-2 {
+        display: flex;
+        margin-right: 20px;
+    }
+
+    /*********** Menu Mobile ***********/
+
+    .active-mobile {
+        display: flex !important;
+    }
+
+    .inactive-mobile {
+        display: none !important;
+    }
+
+    #mega-menu {
+        display: flex;
+        flex-direction: column;
+        background-color: #E00000;
+        font-size: 44px;
+        width: 100%;
+        padding: 80px 0;
+        text-align: center;
+        justify-content: center;
+    }
+
+    #mega-menu li {
+        padding-top: 20px;
+    }
+
+    #mega-menu a {
+        color: white;
+        text-decoration: none;
+        transition: font-weight 0.3s ease-in-out; /* effet de couleur sur les liens menu mobile*/
+    }
+
+    #mega-menu a:hover {
+        font-weight: 600;
+    }
 
 
+    /** effet d apparition du menu open en mobile **/
 
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
 
+    .fade-in{
+        animation: fadeIn 4s forwards;
+    }
+
+    .logo {
+        height: 9px !important;
+        margin-left: 20px !important;
+    }
+
+    /* #menu-btn,
+    #menu-btn-2{
+        margin-right: 20px !important;
+    } */
+
+    /*****FOOTER MOBILE****/
+    footer{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between !important;
+        font-size: 16px !important;
+    }
+
+    footer p{
+        margin: -15px 0 0 0;
+    }
+
+}

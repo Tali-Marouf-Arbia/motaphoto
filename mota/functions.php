@@ -19,3 +19,10 @@ function register_my_menus() {
 
 // Action pour exécuter la fonction après la configuration du thème
 add_action('after_setup_theme', 'register_my_menus');
+
+// Enqueue mon fichier js 
+function enqueue_custom_scripts() {
+    wp_enqueue_script('custom-scripts', get_template_directory_uri() . '/js/scripts.js', array('jquery'), '1.0', true);
+}
+
+add_action('wp_enqueue_scripts', 'enqueue_custom_scripts');
