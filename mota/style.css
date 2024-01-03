@@ -149,8 +149,10 @@ html {
 }
 
 .content{
-    height: 100vh;
+    min-height: 100vh;
 }
+
+
 
 /** header **/
 header,footer{
@@ -195,13 +197,14 @@ img.logo{
 
 #menu-header li a:hover,
 #menu-footer li a:hover{
-    color: #E00000;
+    font-weight: 600;
 }
 
 footer{
     justify-content: center !important;
     height: 40px !important;
     border-top : 1px solid black;
+    margin-top: 20px;
 }
 
 /*************************************** gestion du header et footer en mobile *********************************************************/
@@ -255,7 +258,7 @@ footer{
     #mega-menu a {
         color: white;
         text-decoration: none;
-        transition: font-weight 0.3s ease-in-out; /* effet de couleur sur les liens menu mobile*/
+        animation: fadeIn 4s forwards; /*effet d apparition des liens*/
     }
 
     #mega-menu a:hover {
@@ -263,7 +266,7 @@ footer{
     }
 
 
-    /** effet d apparition du menu open en mobile **/
+    /** effet d apparition du menu mobile **/
 
     @keyframes fadeIn {
         from {
@@ -275,7 +278,7 @@ footer{
     }
 
     .fade-in{
-        animation: fadeIn 4s forwards;
+        animation: fadeIn 3s forwards;
     }
 
     .logo {
@@ -299,5 +302,76 @@ footer{
     footer p{
         margin: -15px 0 0 0;
     }
+} /* fin media header footer*/
 
+
+/************ PAGE VIE PRIVEE *****************/
+
+.entry-header,
+.entry-footer{
+    display: none;
 }
+
+#post-3{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+
+.entry-content{
+    max-width: 85%;
+}
+
+.h1-vie-privee{
+    font-family: 'spacemono';
+    font-size: 40px;
+    font-weight: 700;
+    /* color: #FE5858; */
+    font-style: italic;
+    color: #E00000;
+    margin-bottom: 0;
+}
+
+.h2-vie-privee{
+    font-family: 'spacemono';
+    font-size: 30px;
+    font-weight: 700;
+    color: #E00000;
+    font-style: italic;
+    margin: 60px 0 10px 0;
+    /* color: #FE5858; */
+}
+
+.p-vie-privee{
+    text-align: justify;
+    font-family: 'spacemono';
+}
+
+
+/***************** HERO HEADER DESKTOP ******************/
+#hero-header {
+    position: relative;
+    width: 100%;
+}
+
+#hero-header img {
+    width: 100%;
+    display: block;
+}
+
+#hero-header h1 {
+    max-width: 90%;
+    font-family: 'spacemono';
+    font-style: italic;
+    font-weight: 700;
+    font-size: 96px;
+    -webkit-text-stroke: 3px #ffffff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-45%, -100%);
+    color: transparent;
+}
+
+/**************** HERO MOBILE*****************************/
+
