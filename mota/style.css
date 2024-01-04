@@ -148,11 +148,54 @@ html {
     margin: 0 auto;
 }
 
-.content{
+/* .content{
     min-height: 100vh;
+} */
+
+/********************* css généraux titres, descr photo et paragraphe ************************/
+/**desktop**/
+h1{
+    font-family: 'spacemono';
+    font-weight: 700;
+    font-style: italic;
+    font-size: 96px;
 }
 
+h2{
+    font-family: 'spacemono';
+    font-weight: 400;
+    font-style: italic;
+    font-size: 66px;
+}
 
+.desc-photo{
+    font-family: 'spacemono';
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.p{
+    font-family: 'poppins';
+    font-weight: 300;
+    font-size: 14px;
+}
+/****** styles généraux h1 h2 mobile *****/
+@media screen and (max-width: 800px) {
+    h1{
+        font-family: 'spacemono';
+        font-weight: 700;
+        font-style: italic;
+        font-size: 28px;
+    }
+
+    h2{
+        font-family: 'spacemono';
+        font-weight: 400;
+        font-style: italic;
+        font-size: 46px;
+    }
+}
+/******** Fin styles généraux ********/
 
 /** header **/
 header,footer{
@@ -315,7 +358,8 @@ footer{
 #post-3{
     display: flex;
     justify-content: center;
-    margin-bottom: 50px;
+    background-color: #E5E5E5;
+    padding-bottom: 20px;
 }
 
 .entry-content{
@@ -333,20 +377,14 @@ footer{
 }
 
 .h2-vie-privee{
-    font-family: 'spacemono';
     font-size: 30px;
-    font-weight: 700;
-    color: #E00000;
-    font-style: italic;
+    color: #FE5858;
     margin: 60px 0 10px 0;
-    /* color: #FE5858; */
 }
 
 .p-vie-privee{
     text-align: justify;
-    font-family: 'spacemono';
-}
-
+} 
 
 /***************** HERO HEADER DESKTOP ******************/
 #hero-header {
@@ -367,11 +405,135 @@ footer{
     font-size: 96px;
     -webkit-text-stroke: 3px #ffffff;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-45%, -100%);
+    top: 30%;
+    left: 15%;
     color: transparent;
 }
 
-/**************** HERO MOBILE*****************************/
+/**************** HERO MOBILE *****************************/
+
+
+
+/**************** MODALE DESKTOP *******************************/
+
+/* The Modal */
+.modal {
+    display: none; /* par défaut, la modal est cachée */
+    position: fixed;
+    top: 50%; /* centrer verticalement */
+    left: 50%; /* centrer horizontalement */
+    transform: translate(-50%, -50%); /* centrer correctement */
+    width: 597px;
+    border: 5px black solid;
+    background-color: #fff; /* couleur de fond */
+    z-index: 1;
+    padding: 0;
+    animation: fadeIn 3s ease-in-out forwards !important;
+}
+
+/* Modal Content */
+.modal-content {
+    width: 100%;
+    overflow: hidden;
+    animation: fadeIn 4s forwards !important;
+}
+
+/* Style de l'image du header de la modale*/
+#img-modal {
+    width: 800px;
+    height: 106px;
+    margin-top: 18px;
+}
+/* Style formulaire de la modale*/
+#contact-form-container{
+    display: flex;
+    justify-content: center;
+}
+
+#contact-form-container form p input.wpcf7-submit {
+    width: 100%;
+    height: 50px;
+    font-family: 'spacemono';
+    background-color: #D8D8D8;
+    border: #B8BBC2 1px solid;
+    border-radius: 2px;
+}
+
+#contact-form-container form p input.wpcf7-submit:hover{ /* j ai appliqué les même styles que le cta charger plus cf maquette */
+    background-color: #000;
+    color: #fff;
+    font-weight: 700;
+}
+label{
+    font-size: 12px;
+    font-family: 'poppins';
+    font-weight: 500;
+}
+
+input.wpcf7-text{
+    height: 40px;
+    border-radius: 8px;
+    border: 1px #B8BBC2 solid;
+}
+
+#contact-form-container form p label.label-message textarea {
+    height: 210px;
+    resize: none;
+    border: #B8BBC2 1px solid;
+    border-radius: 8px;
+    padding: 8px;
+}
+
+/*************************************** gestion de la modale en mobile *********************************************************/
+@media screen and (max-width: 800px) {
+    .modal {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 286px;
+        border: 5px black solid;
+        background-color: #fff;
+        z-index: 1;
+        padding: 0;
+        animation: fadeIn 3s ease-in-out forwards !important;
+    }
+
+    #img-modal{
+        margin-bottom: 18px;
+        height: 55px;
+        width: 460px;
+    }
+ 
+    #wpcf7-f27-o1{
+        width: 190px;
+        margin-top: 18px;
+        margin-bottom: -15px;
+    }
+
+    label{
+        display: inline-block;
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    input.wpcf7-text {
+        width: 100%;
+    }
+
+    #contact-form-container form p label.label-message textarea{
+        width: 178px;
+        height: 149px;
+    }
+
+    input{
+        margin: 4px 0 20px 0;
+    }
+
+    input.wpcf7-submit{
+        margin: 21px 0 10px 3px;
+        border-radius: 2px;
+    }
+}
+
 
