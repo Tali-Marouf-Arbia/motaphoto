@@ -410,30 +410,25 @@ footer{
     color: transparent;
 }
 
-/**************** HERO MOBILE *****************************/
-
-
-
 /**************** MODALE DESKTOP *******************************/
 
 /* The Modal */
 .modal {
     display: none; /* par défaut, la modal est cachée */
     position: fixed;
-    top: 50%; /* centrer verticalement */
-    left: 50%; /* centrer horizontalement */
-    transform: translate(-50%, -50%); /* centrer correctement */
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); /* centre correctement */
     width: 597px;
     border: 5px black solid;
-    background-color: #fff; /* couleur de fond */
+    background-color: #fff; 
     z-index: 1;
     padding: 0;
-    animation: fadeIn 3s ease-in-out forwards !important;
+    animation: fadeIn 3s forwards !important;
 }
 
 /* Modal Content */
 .modal-content {
-    width: 100%;
     overflow: hidden;
     animation: fadeIn 4s forwards !important;
 }
@@ -487,16 +482,7 @@ input.wpcf7-text{
 /*************************************** gestion de la modale en mobile *********************************************************/
 @media screen and (max-width: 800px) {
     .modal {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
         width: 286px;
-        border: 5px black solid;
-        background-color: #fff;
-        z-index: 1;
-        padding: 0;
-        animation: fadeIn 3s ease-in-out forwards !important;
     }
 
     #img-modal{
