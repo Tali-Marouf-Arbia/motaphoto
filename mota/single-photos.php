@@ -29,11 +29,11 @@ get_header();
             <p>référence :
                 <?php
                 // Récupér la valeur du custom field "reference"
-                $ma_reference = get_post_meta($post_id, 'reference', true);
+                $reference = get_post_meta($post_id, 'reference', true);
                 // Vérifie si la référence existe
-                if ($ma_reference) {
+                if ($reference) {
                     // Affiche la référence
-                    echo $ma_reference;
+                    echo $reference;
                 } else {
                     echo 'Aucune référence définie pour cet article.';
                 }
@@ -76,20 +76,20 @@ get_header();
             <p>type :
                 <?php
                 // Récupérer la valeur du custom field "type"
-                $mon_type = get_post_meta($post_id, 'type', true);
-                if ($mon_type) {
-                    echo $mon_type;
+                $type = get_post_meta($post_id, 'type', true);
+                if ($type) {
+                    echo $type;
                 } else {
                     echo 'Aucune référence définie pour cet article.';
                 }
                 ?>
             </p>
 
-            <p>date :
+            <p>année :
                 <?php
                 // Récupére la date du custom post type
-                $date = get_the_date('Y', $post_id);
-                echo $date;
+                $annee = get_the_date('Y', $post_id);
+                echo $annee;
                 ?>
             </p>
             </div>
@@ -122,15 +122,15 @@ get_header();
         ?>
         <div class="fleches-container">
             <?php
-            
+            if ($prev_custom_post){
                 $prev_custom_post_link = get_permalink($prev_custom_post);
                 echo '<a href="' . esc_url($prev_custom_post_link) . '"><img src="' . get_template_directory_uri() . '/assets/images/arrow-left.png" alt="photo précédente" class="arrow-left"/></a>';
-            
+            }
 
-            
+            if ($next_custom_post){
                 $next_custom_post_link = get_permalink($next_custom_post);
                 echo '<a href="' . esc_url($next_custom_post_link) . '"><img src="' . get_template_directory_uri() . '/assets/images/arrow-right.png" alt="photo suivante" class="arrow-right"/></a>';
-            
+            }
             ?>
         </div>
     </div>
@@ -143,50 +143,13 @@ get_header();
     </div>
 
     <div class="photos-apparentees-container">
-
-        <?php
-        // Récupére la catégorie actuelle
-        $current_category = get_the_terms($post_id, 'category');
-
-        // WP_Query pour récupérer les articles de la meme catégorie
-        $args = array(
-            'post_type' => 'photos', 
-            'posts_per_page' => 2, // Nombre de photos à afficher
-            'post__not_in' => array($post_id), // N inclue pas la photo actuelle
-            'tax_query' => array(
-                array(
-                    'taxonomy' => 'category',
-                    'field' => 'id',
-                    'terms' => $current_category[0]->term_id, // Utilise le premier terme de la catégorie
-                ),
-            ),
-            'orderby' => 'RAND', // Ordre aléatoire
-            // 'order' => 'ASC', // odre croissant
-        );
-
-        $related_photos_query = new WP_Query($args);
-
-        // Boucle pour afficher les photos apparentées
-        if ($related_photos_query->have_posts()) :
-            while ($related_photos_query->have_posts()) : $related_photos_query->the_post();
-                $related_post_id = get_the_ID();
-                $related_thumbnail = get_the_post_thumbnail($related_post_id, 'large'); // large ou medium ??
-                if (!empty($related_thumbnail)) {
-                    echo '<div class="photo-apparentee">' . $related_thumbnail . '</div>';
-                } else {
-                    echo 'Aucune miniature définie.';
-                }
-            endwhile;
-        else :
-            echo '<div id="redirection-photos">' . 'Aucune photo apparentée trouvée, retrouvez toutes nos photos ' . '<a href="http://localhost/motaphoto">'  . ' ici' . '</a>' . '</div>';
-        endif;
-        ?>
+    <?php get_template_part('template-parts/photo-block'); ?>
     </div>
 
 
 
     <div class="bouton-all-photos bouton-single-photo">
-        <a href="#">Toutes les photos</a>
+        <a href="/motaphoto">Toutes les photos</a>
     </div>
   </div>
 
