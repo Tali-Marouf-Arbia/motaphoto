@@ -143,14 +143,15 @@ Tag: photo
     font-style: normal;
 }
 
-html {
-    max-width: 1440px;
-    margin: 0 auto;
+body{
+    margin: 0;
 }
 
-/* .content{
-    min-height: 100vh;
-} */
+.bigContainer{
+    margin: 0 auto;
+    max-width: 1440px;
+}
+
 
 /********************* css généraux titres, descr photo et paragraphe ************************/
 /**desktop**/
@@ -180,7 +181,7 @@ h2{
     font-size: 14px;
 }
 /****** styles généraux h1 h2 mobile *****/
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 850px) {
     h1{
         font-family: 'spacemono';
         font-weight: 700;
@@ -209,8 +210,16 @@ header,footer{
     height: 80px;
 }
 
+header{
+    box-shadow: 0px 4px 14px 10px #00000008;
+}
+
 img.logo{
-    margin-left: 40px;
+    margin-left: 146px;
+}
+
+.menu-header-container{
+    margin-right: 106px;
 }
 
 #menu-btn,
@@ -251,8 +260,12 @@ footer{
 }
 
 /*************************************** gestion du header et footer en mobile *********************************************************/
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 850px) {
     /**HEADER**/
+    .menu-header-container {
+        margin-right: 0;
+    }
+
     #menu-header {
         display: none;
     }
@@ -271,6 +284,7 @@ footer{
     #menu-btn, #menu-btn-2 {
         display: flex;
         margin-right: 20px;
+        cursor: pointer;
     }
 
     /*********** Menu Mobile ***********/
@@ -347,6 +361,53 @@ footer{
     }
 } /* fin media header footer*/
 
+/************ PAGES EN CONST MENTIONS LEG / A PROPOS ***************/
+article.post-15,
+article.post-6{
+    display: flex;
+    justify-content: center;
+}
+.mentions-container,
+.apropos-container{
+    margin-top: 25px;
+    background-color: #FFD6D6;
+}
+
+div.mentions-aera,
+div.apropos-aera{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    border: #000 solid 2px;
+}
+
+.mentions-aera p,
+.apropos-aera p{
+    font-size: 20px;
+    font-family: 'spacemono';
+    padding: 0 10px !important;
+}
+
+.mentions-aera figure,
+.apropos-aera figure{
+    margin-bottom: -10px !important;
+    margin-top: -20px;
+}
+
+.mentions-aera figure img,
+.apropos-area figure img{
+    width: 100%;
+}
+
+/***************** PAGES EN CONSTR MENTIONS ET A PROPOS MOBILE***************************************/
+@media screen and (max-width: 850px) {
+    .mentions-aera p,
+    .apropos-aera p{
+        font-size: 14px;
+        font-family: 'spacemono';
+        padding: 0 10px !important;
+}
+}
 
 /************ PAGE VIE PRIVEE *****************/
 
@@ -398,16 +459,14 @@ footer{
 }
 
 #hero-header h1 {
-    max-width: 90%;
-    font-family: 'spacemono';
-    font-style: italic;
-    font-weight: 700;
-    font-size: 96px;
+    width: 100%;
     -webkit-text-stroke: 3px #ffffff;
     position: absolute;
-    top: 30%;
-    left: 15%;
     color: transparent;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -100%);
+    text-align: center;
 }
 
 /**************** MODALE DESKTOP *******************************/
@@ -439,6 +498,7 @@ footer{
     height: 106px;
     margin-top: 18px;
 }
+
 /* Style formulaire de la modale*/
 #contact-form-container{
     display: flex;
@@ -480,7 +540,7 @@ input.wpcf7-text{
 }
 
 /*************************************** gestion de la modale en mobile *********************************************************/
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 850px) {
     .modal {
         width: 286px;
     }
@@ -523,3 +583,240 @@ input.wpcf7-text{
 }
 
 
+/*********************  SINGLE-PHOTO.PHP  ************************/
+/***section infos****/
+.post-aera{
+    margin: 0 146px;
+}
+
+.post-content{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    margin-top: 25px;
+}
+
+.post-content figure{
+    max-width: 50%;
+    margin: 0;
+    display: flex;
+    align-items: end;
+    /* padding-top: 25px; */
+    /* display: contents; */
+}
+
+.post-content figure img{
+   height: 100%;
+   object-fit: cover;
+}
+
+.post-infos{
+    /* display: flex;
+    flex-direction: column; */
+    width: 50%;
+    margin-right: 10px;
+    border-bottom: 1px black solid;
+    display: flex;
+    align-items: end;
+    padding-bottom: 50px;
+}
+
+.infosPost{
+    max-width: 70%;
+}
+
+.post-infos h2,
+.post-infos p{
+    text-transform: uppercase;
+    /* width: 420px; */
+}
+
+.post-infos h2{
+    margin: 0 0 20px 0;
+    line-height: 58px;
+}
+
+.post-infos p{
+    font-size: 14px;
+    font-family: 'spacemono';
+}
+
+
+/********section contact*********/
+.contact-post-container{
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 0;
+}
+
+.contact-post-aera{
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.contact-post-aera div p{
+    font-family: 'poppins';
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.bouton-single-photo a{
+    width : 200px;
+    background-color: #D8D8D8;
+    height : 50px;
+    display : flex;
+    justify-content: center;
+    align-items: center;
+    font-family : 'SpaceMono';
+    font-size : 12px;
+    text-decoration: none;
+    color: #000;
+    box-shadow: 0 2px 1px 0 rgba(0, 0, 0, 0.02);
+}
+
+.bouton-single-photo a:hover{
+    background-color: black;
+    color: white;
+    transition: 0.5s;
+}
+
+/***********section miniature et fleches***********/
+.miniature-container{
+    width: 81px;
+    display: flex;
+    justify-content: center;
+}
+
+.miniature-container img{
+    width: 100%;
+    object-fit: cover;
+}
+
+.fleches-container{
+    display: flex;
+    justify-content: space-between;
+}
+
+@keyframes moveLeftRight {
+    0% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(5px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.arrow-left:hover {
+    animation: moveRightLeft 0.5s ease infinite;
+}
+
+@keyframes moveRightLeft {
+    0% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(-5px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.arrow-right:hover {
+    animation: moveLeftRight 0.5s ease infinite;
+}
+
+.arrow-left,
+.arrow-right{
+    width: 25px;
+}
+
+
+/*****section autres photos****/
+.autre-post-aera{
+    border-top: 1px black solid;
+}
+
+.autre-post-title{
+    font-family: 'spacemono';
+    font-size: 18px;
+    font-weight: 400;
+    margin: 60px 0 45px 0;
+}
+
+.bouton-all-photos{
+    display: flex;
+    justify-content: center;
+    margin: 40px 0 50px 0;
+}
+
+/********** section photos apparentées ***********/
+.photos-apparentees-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+div.photo-apparentee{
+    max-height: 495px;
+    max-width: 50%;
+}
+
+div.photo-apparentee img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+/********** page single photo mobil **********/
+@media screen and (max-width: 850px) {
+    .post-aera{
+        margin: 0 40px;
+    }
+    .post-content{
+        display: inline-block;
+        width: 100%;
+    }
+
+    .post-content figure{
+        max-width: 100%;
+        /* justify-content: center; */
+    }
+
+    .contact-post-aera{
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .miniature-aera{
+        display: none;
+    }
+
+    .post-infos{
+        width: 100%;
+    }
+
+    .post-infos h2, .post-infos p{
+        width: 100%;
+    }
+
+    .contact-post-container{
+        margin-bottom: 25px;
+    }
+
+    .bouton-single-photo a,
+    .contact-post-aera div p{
+        width: 283px;
+    }
+
+    .autre-post-title{
+        display: flex;
+        justify-content: center;
+    }
+}
