@@ -101,7 +101,7 @@ get_header();
             <p>Cette photo vous intéresse ?</p>
         </div>
         <div class="bouton-single-photo">
-            <a id="contact-modale" href="#" >Contact</a>
+            <a id="contact-modale" href="#" data-ref="<?php echo $reference ?>" >Contact</a>
         </div>
     </div>
 
@@ -109,8 +109,8 @@ get_header();
         <?php
         // Récupére la miniature du post actuel
         $thumbnail = get_the_post_thumbnail($post_id, 'custom-thumbnail');
-        $prev_custom_post = get_previous_post($post_id);
-        $next_custom_post = get_next_post($post_id);
+        $prev_custom_post = get_previous_post();
+        $next_custom_post = get_next_post();
         $next_post_thumbnail = get_the_post_thumbnail($next_custom_post, 'custom-thumbnail');
         
         // Affiche la miniature
@@ -145,16 +145,10 @@ get_header();
     <div class="photos-apparentees-container">
     <?php get_template_part('template-parts/photo-block'); ?>
     </div>
-
-
-
-    <div class="bouton-all-photos bouton-single-photo">
-        <a href="/motaphoto">Toutes les photos</a>
-    </div>
   </div>
 
 
-</div>
+</div> 
 
 <?php
 get_footer();

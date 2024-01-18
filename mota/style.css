@@ -354,6 +354,7 @@ footer{
         flex-direction: column;
         justify-content: space-between !important;
         font-size: 16px !important;
+        margin-top: 0 !important;
     }
 
     footer p{
@@ -539,6 +540,10 @@ input.wpcf7-text{
     padding: 8px;
 }
 
+input#reference-photo{
+    text-transform: uppercase;
+}
+
 /*************************************** gestion de la modale en mobile *********************************************************/
 @media screen and (max-width: 850px) {
     .modal {
@@ -622,7 +627,7 @@ input.wpcf7-text{
 }
 
 .infosPost{
-    max-width: 70%;
+    max-width: 77%;
 }
 
 .post-infos h2,
@@ -747,7 +752,7 @@ input.wpcf7-text{
     font-family: 'spacemono';
     font-size: 18px;
     font-weight: 400;
-    margin: 60px 0 45px 0;
+    margin: 50px 0 30px 0;
 }
 
 .bouton-all-photos{
@@ -761,12 +766,23 @@ input.wpcf7-text{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    margin-bottom: 75px;
 }
 
 div.photo-apparentee{
     max-height: 495px;
     max-width: 50%;
+    /* margin-right: 20px; */
 }
+
+div.photo-apparentee:nth-child(1){
+    margin-right: 10px;
+}
+
+div.photo-apparentee:nth-child(2){
+    margin-left: 10px;
+}
+
 
 div.photo-apparentee img{
     height: 100%;
@@ -777,21 +793,28 @@ div.photo-apparentee img{
 /********** page single photo mobil **********/
 @media screen and (max-width: 850px) {
     .post-aera{
-        margin: 0 40px;
+        margin: 0 !important;
     }
+
     .post-content{
-        display: inline-block;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         width: 100%;
     }
 
     .post-content figure{
         max-width: 100%;
-        /* justify-content: center; */
+        justify-content: center;
+        margin: 0 50px 10px 50px;
     }
+
 
     .contact-post-aera{
         width: 100%;
         flex-direction: column;
+        margin-left: 50px;
+        align-items: normal;
     }
 
     .miniature-aera{
@@ -800,23 +823,123 @@ div.photo-apparentee img{
 
     .post-infos{
         width: 100%;
+        margin: 0;
+        padding-bottom: 25px !important;
+    }
+
+    .infosPost{
+        max-width: 100% !important;
+        margin: 0 50px;
     }
 
     .post-infos h2, .post-infos p{
         width: 100%;
     }
 
+    .post-infos h2{
+        margin: 0 !important;
+        line-height: 100%;
+    }
+
     .contact-post-container{
         margin-bottom: 25px;
     }
 
-    .bouton-single-photo a,
-    .contact-post-aera div p{
-        width: 283px;
+    .contact-post-aera div{
+        width: 100%;
+        /* margin-left: 75px; */
+    }
+
+
+    .bouton-single-photo{
+        display: contents;
+        /* width: 263px; */
+    }
+
+    .bouton-single-photo a{
+        max-width: 263px;
     }
 
     .autre-post-title{
         display: flex;
         justify-content: center;
+        margin: 25px 20px;
     }
+
+    .photos-apparentees-container{
+        display: flex;
+        flex-direction: column !important;
+        margin-bottom: 0;
+    }
+
+    .photo-apparentee{
+        max-width: 100% !important;
+        margin: 0 20px 20px 20px;
+        max-height: 80vw !important;
+    }
+
+    div.photo-apparentee:nth-child(1){
+        margin: 0 20px 20px 20px;
+    }
+    
+    div.photo-apparentee:nth-child(2){
+        margin: 0 20px 20px 20px;
+    }
+
+    .photo-apparentee img{
+        height: 100% !important;
+    }
+}
+
+
+
+
+/**********BARRES DU MENU MOBILE*******/
+
+
+/* Ajoutez ces règles CSS pour gérer l'état initial et l'état actif du menu */
+
+.burger-menu {
+    display: none;
+}
+
+.menu-open.active-mobile {
+    display: flex;
+}
+
+/* Styles pour l'icône burger */
+@media screen and (max-width: 850px){
+    
+
+.burger-menu {
+    display: block;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+/* Styles pour les barres de l'icône burger */
+.bar {
+    width: 27px;
+    height: 3px;
+    background-color: #404040;
+    margin: 8px 0;
+    transition: 0.5s;
+}
+
+/* Styles pour l'état actif de l'icône burger */
+.burger-menu.change .bar{
+    height: 2px;
+}
+
+.burger-menu.change .bar:nth-child(1) {
+    transform: rotate(-45deg) translate(-9px, 6px);
+ }
+  
+  .burger-menu.change .bar:nth-child(2) {
+    opacity: 0;
+  }
+  
+  .burger-menu.change .bar:nth-child(3) {
+    transform: rotate(45deg) translate(-9px, -6px);
+  }
 }

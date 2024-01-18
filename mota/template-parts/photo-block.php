@@ -25,7 +25,7 @@
         if ($related_photos_query->have_posts()) :
             while ($related_photos_query->have_posts()) : $related_photos_query->the_post();
                 $related_post_id = get_the_ID();
-                $related_thumbnail = get_the_post_thumbnail($related_post_id, 'large'); // large ou medium ??
+                $related_thumbnail = get_the_post_thumbnail($related_post_id, 'large'); 
                 if (!empty($related_thumbnail)) {
                     echo '<div class="photo-apparentee">' . $related_thumbnail . '</div>';
                 } else {
@@ -33,7 +33,7 @@
                 }
             endwhile;
         else :
-            echo '<div id="redirection-photos">' . 'Aucune photo apparentée trouvée, retrouvez toutes nos photos ' . '<a href="http://localhost/motaphoto">'  . ' ici' . '</a>' . '</div>';
+            echo '<div id="redirection-photos">' . 'Aucune photo apparentée trouvée, retrouvez toutes nos photos ' . '<a href=" ' . get_site_url() . ' ">'  . ' ici' . '</a>' . '</div>';
         endif;
 ?>
 
