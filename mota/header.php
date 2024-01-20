@@ -8,9 +8,11 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <?php wp_head(); ?>
 </head>
-<div class="bigContainer">
- <body>
+
+
+<body>
   <div class="bigContainer">
+
     <header id="header">
             <img src="<?php echo get_template_directory_uri() ?>/assets/images/logo.png" class="logo" alt="logo" />
             <?php 

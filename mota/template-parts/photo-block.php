@@ -1,23 +1,23 @@
 <?php
-        // Récupére la catégorie actuelle
-        $post_id = get_the_ID();
-        $current_category = get_the_terms($post_id, 'category');
 
-        // WP_Query pour récupérer les articles de la meme catégorie
-        $args = array(
-            'post_type' => 'photos', 
-            'posts_per_page' => 2, // Nombre de photos à afficher
-            'post__not_in' => array($post_id), // N inclue pas la photo actuelle
-            'tax_query' => array(
-                array(
-                    'taxonomy' => 'category', 
-                    'field' => 'id',
-                    'terms' => $current_category[0]->term_id, // Utilise le premier terme de la catégorie
-                ),
+    // Récupére la catégorie actuelle
+    $post_id = get_the_ID();
+    $current_category = get_the_terms($post_id, 'category');
+
+    // WP_Query pour récupérer les articles de la meme catégorie
+    $args = array(
+        'post_type' => 'photos', 
+        'posts_per_page' => 2, // Nombre de photos à afficher
+        'post__not_in' => array($post_id), // N inclue pas la photo actuelle
+        'tax_query' => array(
+            array(
+                'taxonomy' => 'category', 
+                'field' => 'id',
+                'terms' => $current_category[0]->term_id, // Utilise le premier terme de la catégorie
             ),
-            'orderby' => 'RAND', // Ordre aléatoire
-            // 'order' => 'ASC', // odre croissant
-        );
+        ),
+        'orderby' => 'RAND', // Ordre aléatoire
+    );
 
         $related_photos_query = new WP_Query($args);
 
@@ -33,7 +33,7 @@
                 }
             endwhile;
         else :
-            echo '<div id="redirection-photos">' . 'Aucune photo apparentée trouvée, retrouvez toutes nos photos ' . '<a href=" ' . get_site_url() . ' ">'  . ' ici' . '</a>' . '</div>';
+            echo '<div id="redirection-accueil">' . 'Aucune photo apparentée trouvée, retrouvez toutes nos photos ' . '<a href=" ' . get_site_url() . ' ">'  . ' ici' . '</a>' . '</div>';
         endif;
 ?>
 

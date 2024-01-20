@@ -5,6 +5,7 @@
 
 get_header();
 ?>
+
 <div class="post-aera">
     <div class="post-content">
         <?php
@@ -143,7 +144,9 @@ get_header();
     </div>
 
     <div class="photos-apparentees-container">
-    <?php get_template_part('template-parts/photo-block'); ?>
+    <?php 
+       get_template_part('template-parts/photo-block'); 
+    ?>
     </div>
   </div>
 

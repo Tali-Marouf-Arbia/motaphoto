@@ -39,7 +39,7 @@ add_action('wp_enqueue_scripts', 'enqueue_custom_scripts', );
 function add_thumbnail_photos() {
     add_theme_support('post-thumbnails');
     add_image_size('custom-thumbnail', 81, 71, true); //definit la taille des miniatures utilisees ds single-phots
-    // add_image_size('custom-medium-thumbnail', 564, 495, true); // definit la taille des images apparentees 
+    // add_image_size('custom-large-thumbnail', 2000, 4000, true); // definit la taille des images apparentees 
 }
 // Ajout de l'action pour exécuter la fonction lors de l'initialisation d'ACF
 add_action('acf/init', 'add_thumbnail_photos');
