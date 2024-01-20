@@ -1,0 +1,52 @@
+/*
+description : Styles pour les pages en construction 
+*/
+
+/************ PAGES EN CONST MENTIONS LEG / A PROPOS ***************/
+article.post-15,
+article.post-6{
+    display: flex;
+    justify-content: center;
+}
+.mentions-container,
+.apropos-container{
+    margin-top: 25px;
+    background-color: #FFD6D6;
+}
+
+div.mentions-aera,
+div.apropos-aera{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    border: #000 solid 2px;
+}
+
+.mentions-aera p,
+.apropos-aera p{
+    font-size: 20px;
+    font-family: 'spacemono';
+    padding: 0 10px !important;
+}
+
+.mentions-aera figure,
+.apropos-aera figure{
+    margin-bottom: -10px !important;
+    margin-top: -20px;
+}
+
+.mentions-aera figure img,
+.apropos-area figure img{
+    width: 100%;
+}
+
+/***************** PAGES EN CONSTR MENTIONS ET A PROPOS MOBILE***************************************/
+@media screen and (max-width: 850px) {
+    .mentions-aera p,
+    .apropos-aera p{
+        font-size: 14px;
+        font-family: 'spacemono';
+        padding: 0 10px !important;
+}
+}
+

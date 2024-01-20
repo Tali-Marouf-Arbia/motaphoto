@@ -1,0 +1,42 @@
+/*
+description : Styles pour la page Vie Privée
+*/
+
+/************ PAGE VIE PRIVEE *****************/
+
+.entry-header,
+.entry-footer{
+    display: none;
+}
+
+#post-3{
+    display: flex;
+    justify-content: center;
+    background-color: #E5E5E5;
+    padding-bottom: 20px;
+}
+
+.entry-content{
+    max-width: 85%;
+}
+
+.h1-vie-privee{
+    font-family: 'spacemono';
+    font-size: 40px;
+    font-weight: 700;
+    color: #FE5858;
+    font-style: italic;
+    /* color: #E00000; */
+    margin-bottom: -40px;
+}
+
+.h2-vie-privee{
+    font-size: 30px;
+    color: #FE5858;
+    margin: 60px 0 10px 0;
+}
+
+.p-vie-privee{
+    text-align: justify;
+} 
+

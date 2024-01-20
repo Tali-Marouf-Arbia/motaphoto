@@ -34,14 +34,13 @@ while ($hero_photo_query->have_posts()) :
 
 
 <!-- Bloc de photos accueil -->
-<div class="justify-center">
+<section class="justify-center">
     <div class="photos-accueil-container">
         <?php
         $args_accueil_posts = array(
             'post_type' => 'photos',
             'posts_per_page' => 12,
             'orderby' => 'date',
-            'order' => 'DESC',
         );
 
         $photos_query = new WP_Query($args_accueil_posts);
@@ -58,7 +57,8 @@ while ($hero_photo_query->have_posts()) :
         endwhile;
         ?>
     </div>
-</div>
+</section>
+
 </main>
 
 <?php get_footer(); ?>

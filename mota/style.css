@@ -196,9 +196,9 @@ h2{
         font-size: 46px;
     }
 }
-/******** Fin styles généraux ********/
 
-/** header **/
+
+/*********************************** HEADER / FOOTER *********************************/
 header,footer{
     display: flex;
     flex-direction: row;
@@ -221,12 +221,6 @@ img.logo{
 .menu-header-container{
     margin-right: 106px;
 }
-
-/* #menu-btn,
-.menu-open,
-#menu-btn-2 {
-    display: none;
-} */
 
 #menu-header, #menu-footer{
     display: flex;
@@ -271,7 +265,7 @@ footer{
     display: none;
 }
 
-/*************************************** gestion du header et footer en mobile *********************************************************/
+/********************************** HEADER / FOOTER MOBIL ********************************/
 @media screen and (max-width: 850px) {
     /**HEADER**/
     .menu-header-container {
@@ -292,12 +286,6 @@ footer{
         padding-bottom: 15px;
         font-size : 16px;
     }
-
-    /* #menu-btn, #menu-btn-2 {
-        display: flex;
-        margin-right: 20px;
-        cursor: pointer;
-    } */
 
     /*********** Menu Mobile ***********/
 
@@ -334,7 +322,6 @@ footer{
         font-weight: 600;
     }
 
-
     /** effet d apparition du menu mobile **/
 
     @keyframes fadeIn {
@@ -357,14 +344,14 @@ footer{
 
     /**********ANIMATION OUVERURE / FERMETURE MENU MOBILE*******/
 
-    /* icône burger */
+    /****** icone burger ****/
     .burger-menu {
     display: block;
     margin-right: 20px;
     cursor: pointer;
     }
 
-    /* barres icône burger */
+    /***** barres icone burger ****/
     .bar {
     width: 27px;
     height: 3px;
@@ -373,7 +360,7 @@ footer{
     transition: 1s;
     }
 
-    /* icône burger actif */
+    /******* icne burger actif ****/
     .burger-menu.change .bar{
         height: 2px;
     }
@@ -391,29 +378,6 @@ footer{
         transform: rotate(45deg) translate(-5px, -2px);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     /*****FOOTER MOBILE****/
     footer{
         display: flex;
@@ -426,591 +390,5 @@ footer{
     footer p{
         margin: -15px 0 0 0;
     }
-} /* fin media header footer*/
-
-/************ PAGES EN CONST MENTIONS LEG / A PROPOS ***************/
-article.post-15,
-article.post-6{
-    display: flex;
-    justify-content: center;
-}
-.mentions-container,
-.apropos-container{
-    margin-top: 25px;
-    background-color: #FFD6D6;
-}
-
-div.mentions-aera,
-div.apropos-aera{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    border: #000 solid 2px;
-}
-
-.mentions-aera p,
-.apropos-aera p{
-    font-size: 20px;
-    font-family: 'spacemono';
-    padding: 0 10px !important;
-}
-
-.mentions-aera figure,
-.apropos-aera figure{
-    margin-bottom: -10px !important;
-    margin-top: -20px;
-}
-
-.mentions-aera figure img,
-.apropos-area figure img{
-    width: 100%;
-}
-
-/***************** PAGES EN CONSTR MENTIONS ET A PROPOS MOBILE***************************************/
-@media screen and (max-width: 850px) {
-    .mentions-aera p,
-    .apropos-aera p{
-        font-size: 14px;
-        font-family: 'spacemono';
-        padding: 0 10px !important;
-}
-}
-
-/************ PAGE VIE PRIVEE *****************/
-
-.entry-header,
-.entry-footer{
-    display: none;
-}
-
-#post-3{
-    display: flex;
-    justify-content: center;
-    background-color: #E5E5E5;
-    padding-bottom: 20px;
-}
-
-.entry-content{
-    max-width: 85%;
-}
-
-.h1-vie-privee{
-    font-family: 'spacemono';
-    font-size: 40px;
-    font-weight: 700;
-    /* color: #FE5858; */
-    font-style: italic;
-    color: #E00000;
-    margin-bottom: 0;
-}
-
-.h2-vie-privee{
-    font-size: 30px;
-    color: #FE5858;
-    margin: 60px 0 10px 0;
-}
-
-.p-vie-privee{
-    text-align: justify;
 } 
-
-/**************** MODALE DESKTOP *******************************/
-
-/* The Modal */
-.modal {
-    display: none; /* par défaut, la modal est cachée */
-    position: fixed;
-    top: 50%; 
-    left: 50%; 
-    transform: translate(-50%, -50%); /* centre correctement */
-    width: 597px;
-    border: 5px black solid;
-    background-color: #fff; 
-    z-index: 1;
-    padding: 0;
-    animation: fadeIn 3s forwards !important;
-}
-
-/* Modal Content */
-.modal-content {
-    overflow: hidden;
-    animation: fadeIn 4s forwards !important;
-}
-
-/* Style de l'image du header de la modale*/
-#img-modal {
-    width: 800px;
-    height: 106px;
-    margin-top: 18px;
-}
-
-/* Style formulaire de la modale*/
-#contact-form-container{
-    display: flex;
-    justify-content: center;
-}
-
-#contact-form-container form p input.wpcf7-submit {
-    width: 100%;
-    height: 50px;
-    font-family: 'spacemono';
-    background-color: #D8D8D8;
-    border: #B8BBC2 1px solid;
-    border-radius: 2px;
-}
-
-#contact-form-container form p input.wpcf7-submit:hover{ /* j ai appliqué les même styles que le cta charger plus cf maquette */
-    background-color: #000;
-    color: #fff;
-    font-weight: 700;
-}
-label{
-    font-size: 12px;
-    font-family: 'poppins';
-    font-weight: 500;
-}
-
-input.wpcf7-text{
-    height: 40px;
-    border-radius: 8px;
-    border: 1px #B8BBC2 solid;
-}
-
-#contact-form-container form p label.label-message textarea {
-    height: 210px;
-    resize: none;
-    border: #B8BBC2 1px solid;
-    border-radius: 8px;
-    padding: 8px;
-}
-
-input#reference-photo{
-    text-transform: uppercase;
-}
-
-/*************************************** gestion de la modale en mobile *********************************************************/
-@media screen and (max-width: 850px) {
-    .modal {
-        width: 286px;
-    }
-
-    #img-modal{
-        margin-bottom: 18px;
-        height: 55px;
-        width: 460px;
-    }
- 
-    #wpcf7-f27-o1{
-        width: 190px;
-        margin-top: 18px;
-        margin-bottom: -15px;
-    }
-
-    label{
-        display: inline-block;
-        width: 100%;
-        margin-bottom: 15px;
-    }
-
-    input.wpcf7-text {
-        width: 100%;
-    }
-
-    #contact-form-container form p label.label-message textarea{
-        width: 178px;
-        height: 149px;
-    }
-
-    input{
-        margin: 4px 0 20px 0;
-    }
-
-    input.wpcf7-submit{
-        margin: 21px 0 10px 3px;
-        border-radius: 2px;
-    }
-}
-
-
-/*********************  SINGLE-PHOTO.PHP  ************************/
-/***section infos****/
-.post-aera{
-    margin: 0 146px;
-}
-
-.post-content{
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: space-between;
-    margin-top: 25px;
-}
-
-.post-content figure{
-    max-width: 50%;
-    margin: 0;
-    display: flex;
-    align-items: end;
-    /* padding-top: 25px; */
-    /* display: contents; */
-}
-
-.post-content figure img{
-   height: 100%;
-   object-fit: cover;
-}
-
-.post-infos{
-    /* display: flex;
-    flex-direction: column; */
-    width: 50%;
-    margin-right: 10px;
-    border-bottom: 1px black solid;
-    display: flex;
-    align-items: end;
-    padding-bottom: 50px;
-}
-
-.infosPost{
-    max-width: 77%;
-}
-
-.post-infos h2,
-.post-infos p{
-    text-transform: uppercase;
-    /* width: 420px; */
-}
-
-.post-infos h2{
-    margin: 0 0 20px 0;
-    line-height: 58px;
-}
-
-.post-infos p{
-    font-size: 14px;
-    font-family: 'spacemono';
-}
-
-
-/********section contact*********/
-.contact-post-container{
-    display: flex;
-    justify-content: space-between;
-    margin: 5px 0;
-}
-
-.contact-post-aera{
-    width: 50%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.contact-post-aera div p{
-    font-family: 'poppins';
-    font-size: 14px;
-    font-weight: 300;
-}
-
-.bouton-single-photo a{
-    width : 200px;
-    background-color: #D8D8D8;
-    height : 50px;
-    display : flex;
-    justify-content: center;
-    align-items: center;
-    font-family : 'SpaceMono';
-    font-size : 12px;
-    text-decoration: none;
-    color: #000;
-    box-shadow: 0 2px 1px 0 rgba(0, 0, 0, 0.02);
-}
-
-.bouton-single-photo a:hover{
-    background-color: black;
-    color: white;
-    transition: 0.5s;
-}
-
-/***********section miniature et fleches***********/
-.miniature-container{
-    width: 81px;
-    display: flex;
-    justify-content: center;
-}
-
-.miniature-container img{
-    width: 100%;
-    object-fit: cover;
-}
-
-.fleches-container{
-    display: flex;
-    justify-content: space-between;
-}
-
-@keyframes moveLeftRight {
-    0% {
-        transform: translateX(0);
-    }
-    50% {
-        transform: translateX(5px);
-    }
-    100% {
-        transform: translateX(0);
-    }
-}
-
-.arrow-left:hover {
-    animation: moveRightLeft 0.5s ease infinite;
-}
-
-@keyframes moveRightLeft {
-    0% {
-        transform: translateX(0);
-    }
-    50% {
-        transform: translateX(-5px);
-    }
-    100% {
-        transform: translateX(0);
-    }
-}
-
-.arrow-right:hover {
-    animation: moveLeftRight 0.5s ease infinite;
-}
-
-.arrow-left,
-.arrow-right{
-    width: 25px;
-}
-
-
-/*****section autres photos****/
-.autre-post-aera{
-    border-top: 1px black solid;
-}
-
-.autre-post-title{
-    font-family: 'spacemono';
-    font-size: 18px;
-    font-weight: 400;
-    margin: 50px 0 30px 0;
-}
-
-.bouton-all-photos{
-    display: flex;
-    justify-content: center;
-    margin: 40px 0 50px 0;
-}
-
-/********** section photos apparentées ***********/
-.photos-apparentees-container{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-bottom: 75px;
-}
-
-div.photo-apparentee{
-    max-height: 495px;
-    max-width: 50%;
-    /* margin-right: 20px; */
-}
-
-div.photo-apparentee:nth-child(1){
-    margin-right: 10px;
-}
-
-div.photo-apparentee:nth-child(2){
-    margin-left: 10px;
-}
-
-
-div.photo-apparentee img{
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-}
-
-/********** page single photo mobil **********/
-@media screen and (max-width: 850px) {
-    .post-aera{
-        margin: 0 !important;
-    }
-
-    .post-content{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        width: 100%;
-    }
-
-    .post-content figure{
-        max-width: 100%;
-        justify-content: center;
-        margin: 0 50px 10px 50px;
-    }
-
-
-    .contact-post-aera{
-        width: 100%;
-        flex-direction: column;
-        margin-left: 50px;
-        align-items: normal;
-    }
-
-    .miniature-aera{
-        display: none;
-    }
-
-    .post-infos{
-        width: 100%;
-        margin: 0;
-        padding-bottom: 25px !important;
-    }
-
-    .infosPost{
-        max-width: 100% !important;
-        margin: 0 50px;
-    }
-
-    .post-infos h2, .post-infos p{
-        width: 100%;
-    }
-
-    .post-infos h2{
-        margin: 0 !important;
-        line-height: 100%;
-    }
-
-    .contact-post-container{
-        margin-bottom: 25px;
-    }
-
-    .contact-post-aera div{
-        width: 100%;
-        /* margin-left: 75px; */
-    }
-
-
-    .bouton-single-photo{
-        display: contents;
-        /* width: 263px; */
-    }
-
-    .bouton-single-photo a{
-        max-width: 263px;
-    }
-
-    .autre-post-title{
-        display: flex;
-        justify-content: center;
-        margin: 25px 20px;
-    }
-
-    .photos-apparentees-container{
-        display: flex;
-        flex-direction: column !important;
-        margin-bottom: 0;
-    }
-
-    .photo-apparentee{
-        max-width: 100% !important;
-        margin: 0 20px 20px 20px;
-        max-height: 80vw !important;
-    }
-
-    div.photo-apparentee:nth-child(1){
-        margin: 0 20px 20px 20px;
-    }
-    
-    div.photo-apparentee:nth-child(2){
-        margin: 0 20px 20px 20px;
-    }
-
-    .photo-apparentee img{
-        height: 100% !important;
-    }
-
-    #redirection-accueil{
-        margin: 0 50px 15px 50px; 
-    }
-
-    #redirection-accueil a{
-        color: #FE5858;
-        transition: transform 0.3s ease;
-    }
-
-    #redirection-accueil a:hover{
-        color: #E00000;
-        transform: scale(1.2) !important;
-        transition: transform 0.3s ease;
- 
-    }
-}
-
-
-
-
-
-
-/****************** INDEX.PHP **************/
-
-/***************** HERO HEADER DESKTOP ******************/
-.hero-header {
-    position: relative;
-    width: 100%;
-    height: 963px;
-    background-size: cover;
-    background-position: center;
-    overflow: hidden;
-}
-
-.hero-header h1 {
-    width: 85%;
-    -webkit-text-stroke: 3px #ffffff;
-    position: absolute;
-    color: transparent;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -100%);
-    text-align: center;
-}
-
-/******* bloc de photos accueil*********/
-
-.photos-accueil-container{
-    width: 80%;
-    display: flex;
-    justify-content: space-between;
-    /* margin: 30px 0; */
-    flex-wrap: wrap;
-}
-
-.photo-bloc{
-    width: 49% !important;
-    height: 495px;
-    /* padding: 10px; */
-    margin: 10px 0;
-}
-
-.photo-bloc img{
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-
-}
-
-.justify-center{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
-
-
-
-
-
 

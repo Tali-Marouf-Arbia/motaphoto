@@ -1,10 +1,20 @@
 <?php
 
 function enqueue_my_theme_styles() {
-        wp_enqueue_style('my-theme-style', get_stylesheet_uri());
-    }
+    // Enqueue le fichier principal (style.css)
+    wp_enqueue_style('my-theme-style', get_stylesheet_uri());
+
+    // Enqueue les autres fichiers CSS
+    wp_enqueue_style('page-constr-style', get_template_directory_uri() . '/css/page-constr.css');
+    wp_enqueue_style('vie-privee-style', get_template_directory_uri() . '/css/vie-privee.css');
+    wp_enqueue_style('modale-style', get_template_directory_uri() . '/css/modale.css');
+    wp_enqueue_style('single-photo-style', get_template_directory_uri() . '/css/single-photos.css');
+    wp_enqueue_style('index-style', get_template_directory_uri() . '/css/index.css');
+}
 
 add_action('wp_enqueue_scripts', 'enqueue_my_theme_styles');
+
+
 
 
 // Fonction pour enregistrer mes menus
