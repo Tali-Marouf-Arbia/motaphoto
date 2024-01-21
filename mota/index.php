@@ -10,12 +10,12 @@ $args_hero_photo = array(
 
 $hero_photo_query = new WP_Query($args_hero_photo);
 
-    // Boucle | Parcourir les résultats de la requête
+    // Parcourt les résultats de la requête
 while ($hero_photo_query->have_posts()) :
     $hero_photo_query->the_post();
     $post_permalink = get_permalink(); // Lien permanent de la publication actuelle
 
-    // Récupérer l'img 
+    // Récupere l'img 
     $original_image_url = wp_get_attachment_url(get_post_thumbnail_id());
     $post_id = get_the_ID();
     ?>    
@@ -29,12 +29,13 @@ while ($hero_photo_query->have_posts()) :
 
 <?php endwhile; ?>
 
-<?php wp_reset_postdata(); // Réinitialiser | Données de publication à leur état d'origine ?>
+<?php wp_reset_postdata(); // Réinitialise les données de publication à leur état d'origine ?>
 
 
 
 <!-- Bloc de photos accueil -->
 <section class="justify-center">
+
     <div class="photos-accueil-container">
         <?php
         $args_accueil_posts = array(
@@ -58,6 +59,11 @@ while ($hero_photo_query->have_posts()) :
         ?>
     </div>
 </section>
+
+<!-- Pagination page d'accueil -->
+<div class="pagination-accueil-container">
+        <button id="pagination-photos" class="pagination-photos">Charger plus</button>
+</div>
 
 </main>
 

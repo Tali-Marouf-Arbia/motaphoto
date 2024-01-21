@@ -1,7 +1,7 @@
 <?php
 /**
  * Template Name: Photo unique
- */
+*/
 
 get_header();
 ?>

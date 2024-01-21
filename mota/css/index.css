@@ -1,14 +1,13 @@
 /*
-description : Styles pour la page d'Accueil
+description : Styles de la page d'Accueil (index.php)
 */
 
-/****************** INDEX.PHP **************/
 
-/***************** HERO HEADER DESKTOP ******************/
+/***************** HERO HEADER ****************/
 .hero-header {
     position: relative;
     width: 100%;
-    height: 963px;
+    height: 70vw;
     background-size: cover;
     background-position: center;
     overflow: hidden;
@@ -25,9 +24,8 @@ description : Styles pour la page d'Accueil
     text-align: center;
 }
 
+
 /******* bloc de photos accueil*********/
-
-
 section.justify-center{
     width: 100%;
     display: flex;
@@ -38,14 +36,12 @@ section.justify-center{
     width: 80%;
     display: flex;
     justify-content: space-between;
-    /* margin: 30px 0; */
     flex-wrap: wrap;
 }
 
 .photo-bloc{
     width: 49% !important;
     height: 495px;
-    /* padding: 10px; */
     margin: 10px 0;
 }
 
@@ -54,6 +50,78 @@ section.justify-center{
     width: 100%;
     object-fit: cover;
 
+}
+
+.pagination-accueil-container{
+    text-align: center;
+}
+
+.pagination-photos{
+    width: 272px;
+    height: 50px;
+    cursor: pointer;
+    font-family: 'SpaceMono';
+    font-size: 12px;
+    background-color: #D8D8D8;
+    margin: 50px;
+    border: none;
+    border-radius: 2px;
+}
+
+.pagination-photos:hover{
+    background-color: #000000;
+    color: #ffffff;
+}
+
+/* message fin de galerie */
+.mess-end-load-gallery{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+}
+
+.mess-end-load-gallery p{
+    color: #FE5858;
+    font-style: italic;
+    font-weight: 600;
+}
+
+#icone-pinkCam{
+    width: 38px;
+    margin: 0 10px;
+    object-fit: cover;
+}
+
+/***** Page d accueil mobile *****/
+@media screen and (max-width: 850px) {
+    
+    .hero-header{
+        height: 73vw;
+    }
+
+    .hero-header h1 {
+        width: 100%;
+    }
+
+    .photo-bloc{
+        width: 100% !important;
+        height: 70vw !important;
+    }
+
+    .pagination-accueil-container{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+
+    }
+
+    .pagination-photos{
+        margin-bottom: 45px;
+    }
+
+    
 }
 
 

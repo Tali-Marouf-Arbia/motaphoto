@@ -235,6 +235,10 @@ img.logo{
     color: black;
 }
 
+#menu-footer li{
+    margin-right: 70px !important;
+}
+
 #menu-header li a,
 #menu-footer li a{
     text-decoration: none;
