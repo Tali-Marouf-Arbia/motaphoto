@@ -20,8 +20,6 @@ description : Styles pour single-photos
     margin: 0;
     display: flex;
     align-items: end;
-    /* padding-top: 25px; */
-    /* display: contents; */
 }
 
 .post-content figure img{
@@ -30,8 +28,6 @@ description : Styles pour single-photos
 }
 
 .post-infos{
-    /* display: flex;
-    flex-direction: column; */
     width: 50%;
     margin-right: 10px;
     border-bottom: 1px black solid;
@@ -47,7 +43,6 @@ description : Styles pour single-photos
 .post-infos h2,
 .post-infos p{
     text-transform: uppercase;
-    /* width: 420px; */
 }
 
 .post-infos h2{
@@ -320,6 +315,8 @@ div.photo-apparentee img{
  
     }
 }
+
+
 
 
 

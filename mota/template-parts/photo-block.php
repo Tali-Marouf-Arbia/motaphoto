@@ -20,14 +20,27 @@
     );
 
         $related_photos_query = new WP_Query($args);
-
         // Boucle pour afficher les photos apparentées
         if ($related_photos_query->have_posts()) :
             while ($related_photos_query->have_posts()) : $related_photos_query->the_post();
                 $related_post_id = get_the_ID();
                 $related_thumbnail = get_the_post_thumbnail($related_post_id, 'large'); 
                 if (!empty($related_thumbnail)) {
-                    echo '<div class="photo-apparentee">' . $related_thumbnail . '</div>';
+                    echo '<div class="photo-apparentee">'
+                            . '<a class="permaLink" href="' . get_permalink() . '">' 
+                                . $related_thumbnail 
+                                . '<img src="' . get_template_directory_uri() . '/assets/images/eye.png" class="eye-icone"/>'
+                                . '<div class="infos-hover">'
+                                    . '<div>'
+                                        . get_field('reference')
+                                    . '</div>'
+                                    . '<div class="cat-container">'
+                                        . strip_tags(get_the_term_list(get_the_ID(), 'category'))
+                                    . '</div>'
+                                . '</div>'
+                            . '</a>'
+                        . '</div>';
+
                 } else {
                     echo 'Aucune miniature définie.';
                 }
@@ -39,3 +52,4 @@
 
 
 
+<!-- echo '<div class="photo-apparentee ">'. '<a class="permaLink" href="' . get_permalink() . '">' . $related_thumbnail . '<img src="' . get_template_directory_uri() . '/assets/images/eye.png" class="eye-icone"<p></></a></div>'; -->

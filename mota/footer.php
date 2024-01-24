@@ -8,6 +8,7 @@
         <p>TOUS DROITS RÉSERVÉS</p>
 
         <?php get_template_part('template-parts/modal'); ?>
+        <?php get_template_part('template-parts/lightbox');?>
 
 </footer>
 <?php wp_footer(); ?>  

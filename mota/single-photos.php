@@ -153,6 +153,30 @@ get_header();
 
 </div> 
 
+<!-- script js responsable de la gestion du hover sur les photos apparentées page de photo unique -->
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    let photoApparentees = document.querySelectorAll('.photo-apparentee, .photo-bloc');
+
+    photoApparentees.forEach(function (photoApparentee) {
+        let eyeIcone = photoApparentee.querySelector('.eye-icone');
+        let infosHover = photoApparentee.querySelector('.infos-hover');
+
+        photoApparentee.addEventListener('mouseenter', function () {
+            eyeIcone.style.opacity = 1;
+            infosHover.style.opacity = 1;
+        });
+
+        photoApparentee.addEventListener('mouseleave', function () {
+            eyeIcone.style.opacity = 0;
+            infosHover.style.opacity = 0;
+        });
+    });
+});
+
+</script>
+
 <?php
 get_footer();
 ?>

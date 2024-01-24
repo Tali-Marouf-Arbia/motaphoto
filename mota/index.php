@@ -50,10 +50,23 @@ while ($hero_photo_query->have_posts()) :
             $accueil_post_id = get_the_ID();
             $accueil_thumbnail = get_the_post_thumbnail($accueil_post_id,'large');
                 if (!empty($photos_query)) {
-                    echo '<div class="photo-bloc">' . $accueil_thumbnail . '</div>';
-                }
+                
+                    echo '<div class="photo-bloc">'
+                    . '<a class="permaLink" href="' . get_permalink() . '">' 
+                        . $accueil_thumbnail 
+                        . '<img src="' . get_template_directory_uri() . '/assets/images/eye.png" class="eye-icone"/>'
+                        . '<div class="infos-hover">'
+                            . '<div>'
+                                . get_field('reference')
+                            . '</div>'
+                            . '<div class="cat-container">'
+                                . strip_tags(get_the_term_list(get_the_ID(), 'category'))
+                            . '</div>'
+                        . '</div>'
+                    . '</a>'
+                . '</div>';                }
                 else {
-                    echo 'hello';
+                    echo 'Aucunes photos trouvées';
                 }
         endwhile;
         ?>
@@ -65,6 +78,41 @@ while ($hero_photo_query->have_posts()) :
         <button id="pagination-photos" class="pagination-photos">Charger plus</button>
 </div>
 
+
+<div class="iconeFullscreen-container">
+            <img id="iconeFullscreen" src="<?php echo get_template_directory_uri() ?>/assets/images/iconFullscreen.png" alt="bouton d'ouverture de la lightbox"/>
+</div>
+
 </main>
 
+<!-- script js responsable de la gestion du hover sur les cards de la page d accueil -->
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    let photoApparentees = document.querySelectorAll('.photo-bloc');
+
+    photoApparentees.forEach(function (photoApparentee) {
+        let eyeIcone = photoApparentee.querySelector('.eye-icone');
+        let infosHover = photoApparentee.querySelector('.infos-hover');
+
+        photoApparentee.addEventListener('mouseenter', function () {
+            eyeIcone.style.opacity = 1;
+            infosHover.style.opacity = 1;
+        });
+
+        photoApparentee.addEventListener('mouseleave', function () {
+            eyeIcone.style.opacity = 0;
+            infosHover.style.opacity = 0;
+        });
+    });
+});
+</script>
+
+</main>
 <?php get_footer(); ?>
+
+
+<?php get_footer(); ?>
+
+
+<!-- echo '<div class="photo-bloc">'. '<a href="' . get_permalink() . '">' . $accueil_thumbnail .'<img src="' . get_template_directory_uri() . '/assets/images/eye.png" class="eye-icone">'  .  '</a>' . '</div>'; -->

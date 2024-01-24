@@ -231,12 +231,12 @@ img.logo{
 #menu-footer li {
     font-family: "SpaceMono";
     list-style-type: none;
-    margin-right: 40px;
+    margin-right: 40px !important;
     color: black;
 }
 
 #menu-footer li{
-    margin-right: 70px !important;
+    margin-right: 5vw !important;
 }
 
 #menu-header li a,
@@ -280,19 +280,7 @@ footer{
         display: none;
     }
 
-    #menu-footer {
-        display: flex;
-        flex-direction: column;
-        text-align: center;
-    }
-
-    #menu-footer li {
-        padding-bottom: 15px;
-        font-size : 16px;
-    }
-
     /*********** Menu Mobile ***********/
-
     .active-mobile {
         display: flex !important;
     }
@@ -384,15 +372,28 @@ footer{
 
     /*****FOOTER MOBILE****/
     footer{
+        height: 208px !important;
         display: flex;
         flex-direction: column;
-        justify-content: space-between !important;
         font-size: 16px !important;
         margin-top: 0 !important;
     }
 
     footer p{
         margin: -15px 0 0 0;
+    }
+
+    #menu-footer {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        padding: 0 !important;
+    }
+
+    #menu-footer li {
+        padding-bottom: 30px;
+        font-size : 16px;
+        margin: 0 !important;
     }
 } 
 

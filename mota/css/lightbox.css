@@ -1,0 +1,67 @@
+/* lightbox.css */
+
+#myLightbox {
+    display: none; 
+    position: fixed;
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 9999;
+    padding-top: 50px ;
+}
+
+.active{
+    display: block !important;
+}
+.inactive{
+    display: none;
+}
+
+.croix-container{
+    display: flex !important;
+    justify-content: end;
+}
+
+.croix-container img{
+    margin-right: 50px;
+    cursor: pointer;
+}
+
+.lightbox-content{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.infos-lightbox-container{
+    display: flex;
+    justify-content: space-between;
+}
+
+#iconeFullscreen{
+    cursor: pointer;
+}
+
+.precedent-container,
+.suivant-container{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    
+}
+
+.precedent-container img,
+.suivant-container img{
+    cursor: pointer;
+}
+
+.precedent-container img:hover {
+    animation: moveRightLeft 0.5s ease infinite;
+}
+
+.suivant-container img:hover {
+    animation: moveLeftRight 0.5s ease infinite;
+}

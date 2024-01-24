@@ -15,7 +15,7 @@
   <div class="bigContainer">
 
     <header id="header">
-            <img src="<?php echo get_template_directory_uri() ?>/assets/images/logo.png" class="logo" alt="logo" />
+            <img src="<?php echo get_template_directory_uri() ?>/assets/images/logo.png" id="logo" class="logo" alt="logo" />
             <?php 
                 wp_nav_menu(array(
                     'theme_location' => 'header',

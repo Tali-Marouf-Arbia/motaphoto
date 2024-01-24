@@ -10,6 +10,9 @@ function enqueue_my_theme_styles() {
     wp_enqueue_style('modale-style', get_template_directory_uri() . '/css/modale.css');
     wp_enqueue_style('single-photo-style', get_template_directory_uri() . '/css/single-photos.css');
     wp_enqueue_style('index-style', get_template_directory_uri() . '/css/index.css');
+    wp_enqueue_style('lightbox-style', get_template_directory_uri() . '/css/lightbox.css');
+    wp_enqueue_style('hoverCard-style', get_template_directory_uri() . '/css/hover-card.css');
+ 
 }
 
 add_action('wp_enqueue_scripts', 'enqueue_my_theme_styles');
@@ -37,6 +40,13 @@ function enqueue_custom_scripts() {
 }
 
 add_action('wp_enqueue_scripts', 'enqueue_custom_scripts', );
+
+// function enqueue_lightbox() {
+//     wp_enqueue_script('lightbox-script', get_template_directory_uri() . '/js/lightbox.js', array('jquery'), '1.0', true);
+// }
+
+// add_action('wp_enqueue_scripts', 'enqueue_lightbox');
+
 
 // Fonction pour ajouter le support des miniatures pour le Custom PT "Photos"
 function add_thumbnail_photos() {
@@ -75,7 +85,8 @@ function load_more_posts() {
                 $accueil_post_id = get_the_ID();
                 $accueil_thumbnail = get_the_post_thumbnail($accueil_post_id, 'large');
                 if (!empty($accueil_thumbnail)) {
-                    echo $accueil_thumbnail;
+                    // echo $accueil_thumbnail;
+                    echo '<a class="permaLink" href="' . get_permalink() . '">' . $accueil_thumbnail . '<img src="' . get_template_directory_uri() . '/assets/images/eye.png" class="eye-icone"/>'  . '</a>';
                 }
                 ?>
             </div>
@@ -85,6 +96,7 @@ function load_more_posts() {
     } else {
         // affiche la fin de galerie
         echo '<div class="mess-end-load-gallery">' .'<p>' .  'Fin de la galerie' . '</p>' . '<img id="icone-pinkCam" src="' . get_template_directory_uri() . '/assets/images/pinkCam.png">' .'</div>' ;
+    
     }
      // Imprime le résultat de la requête AJAX (success contenu et num de page)
         echo json_encode(array('result' => 'success', 'content' => ob_get_clean(), 'page' => $page));

@@ -22,23 +22,23 @@ jQuery(function($) { // attend le chargement du DOM et execute le code
                     console.log(response); // affiche la reponse ajax ds la console
 
                     var result = $.parseJSON(response);  // Parse la réponse JSON
-                    
+                    console.log(result);
+                    console.log(result.result);
                     if (result.result === 'success') { // si requete ajax reussie, ajoute le contenu de la rep a la div  
                         $('.photos-accueil-container').append(result.content);
                         page++; // incremente le num de page pr la prochaine requete
-                    } else {
                         // Vérifie si la réponse du serveur contient le message "Fin de la galerie", et s'il le fait, masque la div pagination-accueil-container
-                        if (result.result === 'success' && result.content.indexOf('Fin de la galerie') !== -1) {
-                            $('.pagination-accueil-container').hide(); // NE FONCTIONNE PAS masque la div qui contient le btn
+                        if (result.content.indexOf('Fin de la galerie') !== -1) {
+                            $('.pagination-accueil-container').hide(); // masque la div qui contient le btn à la fin de la gallerie
                         }
-
+                    } else {
                         console.log('Error in response'); // affiche un mess ds la cons en cas d erreur
                     }
                 }
             });
         }
     });
-});
+});(jQuery);
 
 
 
