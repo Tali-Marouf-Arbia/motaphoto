@@ -48,6 +48,7 @@ description : Styles pour single-photos
 .post-infos h2{
     margin: 0 0 20px 0;
     line-height: 58px;
+    width: auto;
 }
 
 .post-infos p{
@@ -78,7 +79,7 @@ description : Styles pour single-photos
 }
 
 .bouton-single-photo a{
-    width : 200px;
+    width : 272px;
     background-color: #D8D8D8;
     height : 50px;
     display : flex;
@@ -89,6 +90,12 @@ description : Styles pour single-photos
     text-decoration: none;
     color: #000;
     box-shadow: 0 2px 1px 0 rgba(0, 0, 0, 0.02);
+}
+
+@media screen and (max-width:1095px){
+    .bouton-single-photo a{
+        width: 200px;
+    }
 }
 
 .bouton-single-photo a:hover{
@@ -161,7 +168,7 @@ description : Styles pour single-photos
     font-family: 'spacemono';
     font-size: 18px;
     font-weight: 400;
-    margin: 50px 0 30px 0;
+    margin: 50px 0 60px 0;
 }
 
 .bouton-all-photos{
@@ -179,7 +186,7 @@ description : Styles pour single-photos
 }
 
 div.photo-apparentee{
-    max-height: 495px;
+    max-height: 55vh;
     max-width: 50%;
     /* margin-right: 20px; */
 }
@@ -211,6 +218,9 @@ div.photo-apparentee img{
         justify-content: center;
         width: 100%;
     }
+    /* .post-infos h2{
+        font-size: ;
+    } */
 
     .post-content figure{
         max-width: 100%;
@@ -284,7 +294,8 @@ div.photo-apparentee img{
     .photo-apparentee{
         max-width: 100% !important;
         margin: 0 20px 20px 20px;
-        max-height: 80vw !important;
+        max-height: inherit !important;
+        height: 80vw !important;
     }
 
     div.photo-apparentee:nth-child(1){

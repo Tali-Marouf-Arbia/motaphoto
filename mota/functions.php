@@ -41,12 +41,6 @@ function enqueue_custom_scripts() {
 
 add_action('wp_enqueue_scripts', 'enqueue_custom_scripts', );
 
-// function enqueue_lightbox() {
-//     wp_enqueue_script('lightbox-script', get_template_directory_uri() . '/js/lightbox.js', array('jquery'), '1.0', true);
-// }
-
-// add_action('wp_enqueue_scripts', 'enqueue_lightbox');
-
 
 // Fonction pour ajouter le support des miniatures pour le Custom PT "Photos"
 function add_thumbnail_photos() {
@@ -66,6 +60,7 @@ add_action('wp_enqueue_scripts', 'enqueue_pagination_js');
 
 // fonction de chargement des photos via AJAX
 function load_more_posts() {
+    ob_start(); // Démarre la mise en mémoire tampon
     $page = $_POST['page']; // recup le num de page depuis les données POST
 
     $args_photos = array( // parametres de la requete pr recup les photos
@@ -85,8 +80,22 @@ function load_more_posts() {
                 $accueil_post_id = get_the_ID();
                 $accueil_thumbnail = get_the_post_thumbnail($accueil_post_id, 'large');
                 if (!empty($accueil_thumbnail)) {
-                    // echo $accueil_thumbnail;
-                    echo '<a class="permaLink" href="' . get_permalink() . '">' . $accueil_thumbnail . '<img src="' . get_template_directory_uri() . '/assets/images/eye.png" class="eye-icone"/>'  . '</a>';
+                    echo '<div class="iconeFullscreen-container">'
+                        . '<img id="iconeFullscreen" class="iconeFullscreen" src="' . get_template_directory_uri() . '/assets/images/iconFullscreen.png" alt="bouton d\'ouverture de la lightbox" />'
+                    . '</div>'
+                    . '<a class="permaLink" href="' . get_permalink() . '">' 
+                    . $accueil_thumbnail 
+                    . '<img src="' . get_template_directory_uri() . '/assets/images/eye.png" class="eye-icone"/>'
+                    . '<div class="infos-hover">'
+                        . '<div class="ref-container">'
+                            . get_field('reference')
+                        . '</div>'
+                        . '<div class="cat-container">'
+                            . strip_tags(get_the_term_list(get_the_ID(), 'category'))
+                        . '</div>'
+                    . '</div>'
+                . '</a>';
+                    
                 }
                 ?>
             </div>
@@ -96,7 +105,6 @@ function load_more_posts() {
     } else {
         // affiche la fin de galerie
         echo '<div class="mess-end-load-gallery">' .'<p>' .  'Fin de la galerie' . '</p>' . '<img id="icone-pinkCam" src="' . get_template_directory_uri() . '/assets/images/pinkCam.png">' .'</div>' ;
-    
     }
      // Imprime le résultat de la requête AJAX (success contenu et num de page)
         echo json_encode(array('result' => 'success', 'content' => ob_get_clean(), 'page' => $page));
@@ -106,3 +114,116 @@ function load_more_posts() {
 // action pr gerer la resquete ajax des utilisateurs co et non-co
 add_action('wp_ajax_load_more_posts', 'load_more_posts');
 add_action('wp_ajax_nopriv_load_more_posts', 'load_more_posts');
+
+
+
+// FILTRES
+
+add_action('wp_ajax_filter_photos', 'filter_photos');
+add_action('wp_ajax_nopriv_filter_photos', 'filter_photos');
+
+function filter_photos() {
+    $categorie =  $_POST['category']; 
+    $format = $_POST['format'];
+    $order =$_POST['order']; 
+
+    error_log('Catégorie : ' . print_r($categorie, true));
+    error_log('Format : ' . print_r($format, true));
+    error_log('Order : ' . print_r($order, true));
+
+    if($categorie && $format){
+        $args = array(
+            'post_type'=>'photos',
+            'orderby' => 'date',
+            'order' => $order,
+            'tax_query'=> array(
+                'relation'=> 'AND',
+                array(
+                    'taxonomy' => 'category',
+                    'field' => 'slug',
+                    'terms' => $categorie,
+                ),
+                array(
+                    'taxonomy' => 'format',
+                    'field' => 'slug',
+                    'terms' => $format,
+                ),
+            ),
+    
+        );
+        $query = new WP_Query($args);
+
+        
+// Afficher la requête SQL générée dans le fichier de log
+error_log('Requête SQL générée : ' . $query->request);
+
+
+            if ($query->have_posts()) :
+                while ($query->have_posts()) : $query->the_post();
+
+                endwhile;
+            else :
+                echo "Aucune photo ne correspond à votre recherche";
+                error_log("Pas de photos pour la catégorie : " . $categorie . " et le format : " . $format);
+    
+            endif;
+            }
+            elseif($categorie){
+                $args = array(
+                            'post_type' => 'photos',  
+                            'tax_query' => array(
+                                array(
+                                    'taxonomy' => 'category',
+                                    'field'    => 'slug',
+                                    'terms'    =>  $categorie ,
+                                ),
+                            ),
+                        );
+                        $query = new WP_Query($args);
+
+                        if ($query->have_posts()) :
+                            while ($query->have_posts()) : $query->the_post();
+                            
+                       endwhile;
+                        else :
+                            echo "Aucune photo ne correspond à votre recherche";
+                    
+                        endif;
+                    
+            }
+            elseif($format){
+                $args = array(
+                    'post_type' => 'photos',  
+                    'tax_query' => array(
+                        array(
+                            'taxonomy' => 'format',
+                            'field'    => 'slug',
+                            'terms'    =>  $format ,
+                        ),
+                    ),
+                );
+                $query = new WP_Query($args);
+
+                if ($query->have_posts()) :
+                    while ($query->have_posts()) : $query->the_post();
+                    endwhile;
+                else :
+                    echo "Aucune photo ne correspond à votre recherche";
+            
+                endif;
+            
+        
+            }
+            
+        
+        }
+        
+// enqueue filtre.js
+function enqueue_filtres() {
+    wp_enqueue_script('filtres-script', get_template_directory_uri() . '/js/filtres.js', array('jquery'), '1.0', true);
+    
+    // Transmettez la variable ajax_url au script
+    wp_localize_script('filtres-script', 'ajax_object', array('ajax_url' => admin_url('admin-ajax.php')));
+}
+
+add_action('wp_enqueue_scripts', 'enqueue_filtres');

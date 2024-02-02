@@ -2,7 +2,6 @@
 
 /****index.php*****/
 .photo-bloc img.eye-icone{
-    z-index: 1000 !important;
     position: relative !important;
     object-fit: scale-down !important;
     background-color: rgba(0, 0, 0, 0.4);
@@ -11,6 +10,12 @@
     margin-top: -200%;
     margin-bottom: 18px;
     opacity: 0;
+    z-index: 2;
+}
+
+.cat-container,
+.ref-container{
+    z-index: 2;
 }
 
 /*****single-photo.php*********/
@@ -19,29 +24,20 @@
     opacity: 0;
     background-color: rgba(0, 0, 0, 0.4);
     transition: 300ms;
-    /* height: 100%; */
     margin-top: -200%;
     margin-bottom: 18px;
 }
 
-/* .photo-apparentee img.eye-icone:hover{
-    opacity: 1;
-} */
 
 .infos-hover{
     display: flex;
     justify-content: space-between;
     padding: 10px;
     margin-top: -70px;
-    text-decoration: none !important;
     color: white;
     text-transform: uppercase;
     opacity: 0;
-    transition: 0.3s;
-}
-
-.infos-hover div{
-    text-decoration: none !important;
+    transition: 200ms;
 }
 
 

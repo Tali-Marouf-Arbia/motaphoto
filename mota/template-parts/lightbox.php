@@ -1,107 +1,210 @@
 <?php
+// Initialiser un tableau pour stocker les objets de photos
+$photo_objects = array();
+$post_id = get_the_ID();
+// Vérifier si nous sommes sur la page d'accueil
+if (is_home() || is_front_page()) {
+    // Récupérer toutes les catégories de photos disponibles
+    $all_categories = get_terms('category', array('taxonomy' => 'category', 'fields' => 'ids'));
+    
+    // Utiliser toutes les catégories disponibles pour la requête
+    $args['tax_query'][0]['terms'] = $all_categories;
+} else {
+    // Utiliser la logique actuelle pour les pages d'articles individuelles
+    $current_category = get_the_terms($post_id, 'category');
+    $args['tax_query'][0]['terms'] = $current_category[0]->term_id;
+}
 
-// Utilisation de WP_Query pour récupérer les objets du CPT "photos"
+// WP_Query pour récupérer les articles de la meme catégorie
 $args = array(
-    'post_type' => 'photos', //CPT Photo
-    'posts_per_page' => -1, //-1 pour récupérer toutes les photos
+    'post_type' => 'photos', 
+    'posts_per_page' => -1, // Nombre de photos à afficher
+    'post__not_in' => array($post_id), // N inclue pas la photo actuelle
+    'tax_query' => array(
+        array(
+            'taxonomy' => 'category', 
+            'field' => 'id',
+            'terms' => $args['tax_query'][0]['terms'], // Utilise le terme de la catégorie défini précédemment
+        ),
+    ),
+    // 'orderby' => 'RAND', // Ordre aléatoire
 );
+$query = new WP_Query($args);
 
-$query = new WP_Query($args); 
-
-//  si articles 
+// Vérifier si des articles ont été trouvés
 if ($query->have_posts()) {
-    // Initialise un tableau pour stocker les objets
     $photo_objects = array();
-
-    while ($query->have_posts()) {//parcours de toutes les photos
+    while ($query->have_posts()) {
         $query->the_post();
-        $categories = get_the_terms(get_the_ID(), 'category'); //récupération de la catégorie
-
+        
+        // Récupérer les catégories de la categorie pour chaque photo
+        $categories = get_the_terms(get_the_ID(), 'category');
+        
         // Obtenir les données de la photo pour la lightbox
-        $photo_data = array( //stockage des données dans un tableau
+        $photo_data = array(
             'thumbnail' => get_the_post_thumbnail_url(),
             'reference' => get_post_meta(get_the_ID(), 'reference', true),
-            'category' => $categories[0]->name,
+            'category'  => !empty($categories) ? $categories[0]->name : '', // Assurer que $categories est défini
         );
-        $photo_objects[] = $photo_data; //stockage des tableaux de données dans le tableau principal
+
+        $photo_objects[] = $photo_data; // on stocke les donnees ds le tableau principal (tableau ds tableau)
     }
     wp_reset_postdata();
 }
+    
+    $query = new WP_Query($args); //requette avec les arguments donnés précédemment
+    
+    // Vérifier si des articles ont été trouvés
+    if ($query->have_posts()) {
+        // Initialiser un tableau pour stocker les objets
+        $photo_objects = array();
+    
+        while ($query->have_posts()) {//parcours de toutes les photos
+            $query->the_post();
+            $categories = get_the_terms(get_the_ID(), 'category'); //récupération de la catégorie
+            
+            // Obtenir les données de la photo pour la lightbox
+            $photo_data = array( //stockage des données dans un tableau
+                'thumbnail' => get_the_post_thumbnail_url(),
+                'reference' => get_post_meta(get_the_ID(), 'reference', true),
+                'category' => $categories[0]->name,
+            );
+            $photo_objects[] = $photo_data; //stockage des tableaux de données dans le tableau principal
+        }
+        wp_reset_postdata();
+    
+        
+    }
 ?>
-
-<script>
-    //on passe le tableau à javascript
-    let dataPhotos = <?php echo json_encode($photo_objects); ?>;
-</script>
 
 <!-- The Lightbox -->
 <div id="myLightbox" class="lightbox-container">
     <div id="lightbox-cross" class="croix-container">
-        <img id="croixLightbox" class="croixLightbox" src="<?php echo get_template_directory_uri(); ?>/assets/images/croix.png"/>   
+        <img id="croixLightbox" class="croixLightbox" src="<?php echo get_template_directory_uri(); ?>/assets/images/croix.png" />
     </div>
 
     <!-- Lightbox content -->
     <div class="lightbox-content">
         <div class="precedent-container">
             <img src="<?php echo get_template_directory_uri() ?>/assets/images/precedente.png" alt="Fleche précédente" />
+            <img src="<?php echo get_template_directory_uri() ?>/assets/images/suivante.png" alt="Fleche suivante" id="img-next-mob"/>
         </div>
 
         <div class="lightbox-image-container">
-        <img src='<?php echo get_the_post_thumbnail_url(); ?>'id="lightbox-image"/>
-
+            <img src='<?php echo get_the_post_thumbnail_url(); ?>' id="lightbox-image" />
         </div>
 
-        <div class="suivant-container">
-            <img src="<?php echo get_template_directory_uri() ?>/assets/images/suivante.png" alt="Fleche suivante"/>
+        <div class="suivant-container"  >
+            <img src="<?php echo get_template_directory_uri() ?>/assets/images/suivante.png" alt="Fleche suivante" id="img-next-desk" />
         </div>
     </div>
 
-    <div class="infos-lightbox-container">
-        <p id='lightbox-info-ref'>REF</p>
-        <p id='lightbox-info-cat'>CAT</p>
+    <div class="infos-lightbox-container" id="infos-lightbox-container">
+        <p id='lightbox-info-ref'><?php echo get_post_meta(get_the_ID(), 'reference', true); ?></p>
+        <p id='lightbox-info-cat'>
+            <?php
+            if (!empty($categories)) {
+                foreach ($categories as $categorie) {
+                    echo esc_html($categorie->name);
+                }
+            }
+            ?>
+        </p>
     </div>
 </div>
 
+
 <script>
-    // Utilise le tableau dataPhotos pour initialiser la lightbox
-    let lightbox = document.getElementById("myLightbox");
-    let lightbox_overlay = document.querySelector(".lightbox-container");
-    let lightbox_cross = document.querySelector(".croix-container");
-    let lightbox_image = document.getElementById("lightbox-image");
+jQuery(document).ready(function($) {
+    let dataPhotos = <?php echo json_encode($photo_objects); //passe mon tableau a js ?>;
+    console.log('Data photos: ', dataPhotos);
+    let currentIndex = 0;
 
-    let photo = document.getElementById("iconeFullscreen");
-
-    // Fonction pour ouvrir la lightbox
-    function openLightbox() {
-        lightbox.classList.add("active-flex");
-        lightbox.classList.remove("inactive");
-        lightbox_overlay.classList.add("active");
-        lightbox_overlay.classList.remove("inactive");
-        lightbox_cross.classList.add("active");
-        lightbox_cross.classList.remove("inactive");
-        
-        // Afficher la première image au démarrage de la lightbox
-        lightbox_image.src = dataPhotos[0].thumbnail;
+    function openLightbox(index) {
+        currentIndex = index;
+        $('#lightbox-image').attr('src', dataPhotos[index].thumbnail);
+        $('#lightbox-info-ref').text(dataPhotos[index].reference);
+        $('#lightbox-info-cat').text(dataPhotos[index].category);
+        $('#myLightbox').fadeIn();
     }
 
-    // Fonction pour fermer la lightbox
-    function closeLightbox() {
-        lightbox.classList.add("inactive");
-        lightbox.classList.remove("active-flex");
-        lightbox_overlay.classList.add("inactive");
-        lightbox_overlay.classList.remove("active");
-        lightbox_cross.classList.add("inactive");
-        lightbox_cross.classList.remove("active");
-    }
+    // Événement de clic sur les éléments avec la classe 'iconeFullscreen'
+    $('.iconeFullscreen').on('click', function() {
+    let index = $(this).closest('.photo-bloc, .photo-apparentee').index();
+    // console.log('index cliqué: ', index);
 
-    // Ouverture de la lightbox au clic sur l'icone
-    photo.addEventListener("click", function () {
-        openLightbox();
-        console.log('clic sur l icone lightbox')
+    // Vérifier si l'index est valide
+    if (index >= 0) {
+        openLightbox(index);
+    } else {
+        console.error('Invalid index:', index);
+    }
     });
 
-    // Fermeture de la lightbox au clic sur la croix
-    lightbox_cross.addEventListener("click", function () {
+
+    // Événement de clic sur la croix pour fermer la lightbox   
+     $('#lightbox-cross').on('click', function() {
         closeLightbox();
     });
+
+    function closeLightbox() {
+        $('#myLightbox').fadeOut();
+    }
+
+    // Événement de clic sur la flèche précédente
+    $('.precedent-container').on('click', function() {
+        currentIndex = (currentIndex - 1 + dataPhotos.length) % dataPhotos.length;
+        openLightbox(currentIndex);
+    });
+
+    // Événement de clic sur la flèche suivante
+    $('.suivant-container').on('click', function() {
+        currentIndex = (currentIndex + 1) % dataPhotos.length;
+        openLightbox(currentIndex);
+    });
+
+    // Ajoutez les fonctionnalités de navigation gauche/droite ici  
+    $('.precedent-lightbox').on('click', function() {
+        leftLightbox();
+    });
+
+    $('.suivant-lightbox').on('click', function() {
+        rightLightbox();
+    });
+
+    // Fonctions pour la navigation gauche/droite
+    function leftLightbox() {
+        currentIndex = (currentIndex - 1 + dataPhotos.length) % dataPhotos.length;
+        updateLightboxContent(currentIndex);
+    }
+
+    function rightLightbox() {
+        currentIndex = (currentIndex + 1) % dataPhotos.length;
+        updateLightboxContent(currentIndex);
+    }
+   
+    function updateLightboxContent(index) {
+        $('#lightbox-image').attr('src', dataPhotos[index].thumbnail);
+        $('#lightbox-info-ref').text(dataPhotos[index].reference);
+        $('#lightbox-info-cat').text(dataPhotos[index].category);
+    }
+
+    // CLIC sur Escape pour fermer la lightbox
+    $(document).on('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeLightbox();
+        }
+    });
+
+    // NAV avec le clavier
+    $(document).on('keydown', function(e) {
+        if (e.key === 'ArrowLeft') {
+            leftLightbox();
+        } else if (e.key === 'ArrowRight') {
+            rightLightbox();
+        }
+    });    
+});
+
 </script>
+

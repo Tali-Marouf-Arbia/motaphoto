@@ -180,6 +180,10 @@ h2{
     font-weight: 300;
     font-size: 14px;
 }
+
+a{
+    text-decoration: none !important;
+}
 /****** styles généraux h1 h2 mobile *****/
 @media screen and (max-width: 850px) {
     h1{
@@ -236,7 +240,7 @@ img.logo{
 }
 
 #menu-footer li{
-    margin-right: 5vw !important;
+    margin-right: 3vw !important;
 }
 
 #menu-header li a,
@@ -272,6 +276,11 @@ footer{
 /********************************** HEADER / FOOTER MOBIL ********************************/
 @media screen and (max-width: 850px) {
     /**HEADER**/
+
+    #header{
+        height: 72px;
+    }
+
     .menu-header-container {
         margin-right: 0;
     }
@@ -396,4 +405,9 @@ footer{
         margin: 0 !important;
     }
 } 
+
+
+
+
+
 

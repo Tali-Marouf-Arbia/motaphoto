@@ -157,23 +157,27 @@ get_header();
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    let photoApparentees = document.querySelectorAll('.photo-apparentee, .photo-bloc');
+    let photoApparentees = document.querySelectorAll('.photo-apparentee');
 
     photoApparentees.forEach(function (photoApparentee) {
         let eyeIcone = photoApparentee.querySelector('.eye-icone');
         let infosHover = photoApparentee.querySelector('.infos-hover');
+        let iconFullscreen = photoApparentee.querySelector('#iconeFullscreen'); 
 
         photoApparentee.addEventListener('mouseenter', function () {
             eyeIcone.style.opacity = 1;
             infosHover.style.opacity = 1;
+            iconFullscreen.style.opacity = 0.8; // Gestion de l'opacité de l'icône fullscreen
         });
 
         photoApparentee.addEventListener('mouseleave', function () {
             eyeIcone.style.opacity = 0;
             infosHover.style.opacity = 0;
+            iconFullscreen.style.opacity = 0; // Gestion de l'opacité de l'icône fullscreen
         });
     });
 });
+
 
 </script>
 

@@ -3,9 +3,9 @@ jQuery(function($) { // attend le chargement du DOM et execute le code
     var canLoadMore = true;
 
     $('#pagination-photos').on('click', function() { // associe le clic au bouton charger +
-        console.log('clic sur bouton "charger plus"');
+        // console.log('clic sur bouton "charger plus"');
         if (canLoadMore) {
-            console.log('Can load more!');// pr verif si chargement supplem  est bien autorisé
+            // console.log('Can load more!');// pr verif si chargement supplem  est bien autorisé
             
             // effectue la requete ajax vers le serveur wp
             $.ajax({
@@ -18,12 +18,12 @@ jQuery(function($) { // attend le chargement du DOM et execute le code
 
                 // si requete ajax success, execute la fonction
                 success: function(response) {
-                    console.log('Ajax success!'); // pr verif si requete success
-                    console.log(response); // affiche la reponse ajax ds la console
+                    // console.log('Ajax success!'); // pr verif si requete success
+                    // console.log(response); // affiche la reponse ajax ds la console
 
-                    var result = $.parseJSON(response);  // Parse la réponse JSON
-                    console.log(result);
-                    console.log(result.result);
+                    var result = JSON.parse(response);  // Parse la réponse JSON
+                    // console.log(result);
+                    // console.log(result.result);
                     if (result.result === 'success') { // si requete ajax reussie, ajoute le contenu de la rep a la div  
                         $('.photos-accueil-container').append(result.content);
                         page++; // incremente le num de page pr la prochaine requete

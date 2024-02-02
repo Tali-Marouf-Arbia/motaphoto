@@ -1,4 +1,4 @@
-/* lightbox.css */
+/****** Style de la lightbox*****/
 
 #myLightbox {
     display: none; 
@@ -9,59 +9,124 @@
     width: 100%;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.8);
-    z-index: 9999;
-    padding-top: 50px ;
+    z-index: 6;
+    padding-top: 40px;
 }
-
-.active{
+.active {
     display: block !important;
 }
-.inactive{
+.inactive {
     display: none;
 }
-
-.croix-container{
+.croix-container {
     display: flex !important;
     justify-content: end;
+    margin-bottom: 10px;
 }
-
-.croix-container img{
+.croix-container img {
     margin-right: 50px;
     cursor: pointer;
+    opacity: 0.8;
 }
-
-.lightbox-content{
+.croix-container img.croixLightbox:hover {
+    opacity: 1;
+}
+.lightbox-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-
-.infos-lightbox-container{
+.infos-lightbox-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+    color: white;
+    text-transform: uppercase;
 }
-
-#iconeFullscreen{
+.infos-lightbox-container p{
+    margin-top: 10px;
+}
+.iconeFullscreen-container {
+    display: flex;
+    justify-content: end;
+    margin: 0 10px -50px 0;
+    z-index: 3;
+    position: relative;
+    height: 40px;
+}
+#iconeFullscreen {
     cursor: pointer;
+    width: auto;
+    opacity: 0;
+    transition: opacity 0.5s, cursor 0.5s;
 }
-
+#iconeFullscreen:hover {
+    opacity: 1;
+    cursor: zoom-in;
+}
 .precedent-container,
 .suivant-container{
+    margin: 0 10px;
     display: flex;
-    width: 100%;
     justify-content: center;
-    
+    width: 20%;
 }
-
 .precedent-container img,
-.suivant-container img{
+.suivant-container img {
     cursor: pointer;
+    opacity: 0.8;
+    transition: opacity 0.5s;
 }
-
 .precedent-container img:hover {
     animation: moveRightLeft 0.5s ease infinite;
+    opacity: 1;
 }
-
 .suivant-container img:hover {
     animation: moveLeftRight 0.5s ease infinite;
+    opacity: 1;
 }
+
+.lightbox-image-container{
+    max-width: 90%;
+    max-height: 850px !important;
+    /* overflow: clip; */
+    overflow: scroll;
+}
+#img-next-mob{
+    display: none;
+}
+
+@media screen and (max-width:850px) {
+    #lightbox-image{
+        width: 100%;
+    
+    }
+
+    .precedent-container, .suivant-container {
+        width: inherit;
+    }
+
+    .precedent-container img, .suivant-container img{
+        width: 70px;
+    }
+
+    #img-next-desk{
+        display: none;
+    }
+    #img-next-mob{
+        display: block;
+    }
+    .lightbox-content{
+        flex-direction: column-reverse;
+    }
+    .precedent-container{
+        display: flex;
+        justify-content: space-between;
+        width: 80%;
+    }
+
+}
+
+
+
+
+

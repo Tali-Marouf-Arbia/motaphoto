@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let contactLink = document.getElementById('contact-modale');
     let contactNavLink = document.getElementById('menu-item-10');
     // console.log('modale et liens de contact récupérés');
-    console.log(contactNavLink);
+    // console.log(contactNavLink);
     // Affiche la modale
     modal.style.display = 'block';
 
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Vérifie si le clic n'est pas dans la modale , ni sur les liens de contact
         if (target !== modal && !modal.contains(target) && target !== contactLink && target !== contactNavLink) {
             modal.style.display = 'none';
-            console.log('clic hors modale');
+            // console.log('clic hors modale');
         }
     });
 });
