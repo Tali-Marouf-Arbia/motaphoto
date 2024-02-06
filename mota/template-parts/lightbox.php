@@ -2,6 +2,7 @@
 // Initialiser un tableau pour stocker les objets de photos
 $photo_objects = array();
 $post_id = get_the_ID();
+
 // Vérifier si nous sommes sur la page d'accueil
 if (is_home() || is_front_page()) {
     // Récupérer toutes les catégories de photos disponibles
@@ -15,11 +16,10 @@ if (is_home() || is_front_page()) {
     $args['tax_query'][0]['terms'] = $current_category[0]->term_id;
 }
 
-// WP_Query pour récupérer les articles de la meme catégorie
+// WP_Query pour récupérer les articles de la même catégorie
 $args = array(
     'post_type' => 'photos', 
     'posts_per_page' => -1, // Nombre de photos à afficher
-    'post__not_in' => array($post_id), // N inclue pas la photo actuelle
     'tax_query' => array(
         array(
             'taxonomy' => 'category', 
@@ -27,55 +27,56 @@ $args = array(
             'terms' => $args['tax_query'][0]['terms'], // Utilise le terme de la catégorie défini précédemment
         ),
     ),
-    // 'orderby' => 'RAND', // Ordre aléatoire
 );
+
 $query = new WP_Query($args);
 
 // Vérifier si des articles ont été trouvés
 if ($query->have_posts()) {
-    $photo_objects = array();
     while ($query->have_posts()) {
         $query->the_post();
         
+        // Récupérer l'ID de la photo en cours
+        $current_photo_id = get_the_ID();
+    
         // Récupérer les catégories de la categorie pour chaque photo
-        $categories = get_the_terms(get_the_ID(), 'category');
+        $categories = get_the_terms($current_photo_id, 'category');
         
         // Obtenir les données de la photo pour la lightbox
         $photo_data = array(
-            'thumbnail' => get_the_post_thumbnail_url(),
-            'reference' => get_post_meta(get_the_ID(), 'reference', true),
+            'thumbnail' => get_the_post_thumbnail_url($current_photo_id),
+            'reference' => get_post_meta($current_photo_id, 'reference', true),
             'category'  => !empty($categories) ? $categories[0]->name : '', // Assurer que $categories est défini
         );
-
-        $photo_objects[] = $photo_data; // on stocke les donnees ds le tableau principal (tableau ds tableau)
+    
+        $photo_objects[] = $photo_data; // on stocke les données dans le tableau principal (tableau dans le tableau)
     }
     wp_reset_postdata();
 }
-    
-    $query = new WP_Query($args); //requette avec les arguments donnés précédemment
-    
-    // Vérifier si des articles ont été trouvés
-    if ($query->have_posts()) {
-        // Initialiser un tableau pour stocker les objets
-        $photo_objects = array();
-    
-        while ($query->have_posts()) {//parcours de toutes les photos
-            $query->the_post();
-            $categories = get_the_terms(get_the_ID(), 'category'); //récupération de la catégorie
-            
-            // Obtenir les données de la photo pour la lightbox
-            $photo_data = array( //stockage des données dans un tableau
-                'thumbnail' => get_the_post_thumbnail_url(),
-                'reference' => get_post_meta(get_the_ID(), 'reference', true),
-                'category' => $categories[0]->name,
-            );
-            $photo_objects[] = $photo_data; //stockage des tableaux de données dans le tableau principal
-        }
-        wp_reset_postdata();
-    
-        
-    }
 ?>
+
+<script>
+    //on passe le tableau à javascript
+    let dataPhotos = <?php echo json_encode($photo_objects); ?>;
+    let categories = <?php echo json_encode(wp_list_pluck($categories, 'name')); ?>; // Ajout de cette ligne pour récupérer les noms des catégories
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!-- The Lightbox -->
 <div id="myLightbox" class="lightbox-container">
@@ -114,15 +115,24 @@ if ($query->have_posts()) {
 </div>
 
 
+
+
+
+
+
+
+
+
+
+
 <script>
-jQuery(document).ready(function($) {
-    let dataPhotos = <?php echo json_encode($photo_objects); //passe mon tableau a js ?>;
-    console.log('Data photos: ', dataPhotos);
-    let currentIndex = 0;
+    
+// Fonction pour initialiser la lightbox
+function initLightbox() {
 
     function openLightbox(index) {
         currentIndex = index;
-        $('#lightbox-image').attr('src', dataPhotos[index].thumbnail);
+        $('#lightbox-image').attr('src', dataPhotos[currentIndex].thumbnail);
         $('#lightbox-info-ref').text(dataPhotos[index].reference);
         $('#lightbox-info-cat').text(dataPhotos[index].category);
         $('#myLightbox').fadeIn();
@@ -131,7 +141,7 @@ jQuery(document).ready(function($) {
     // Événement de clic sur les éléments avec la classe 'iconeFullscreen'
     $('.iconeFullscreen').on('click', function() {
     let index = $(this).closest('.photo-bloc, .photo-apparentee').index();
-    // console.log('index cliqué: ', index);
+    console.log('index cliqué: ', index);
 
     // Vérifier si l'index est valide
     if (index >= 0) {
@@ -203,7 +213,14 @@ jQuery(document).ready(function($) {
         } else if (e.key === 'ArrowRight') {
             rightLightbox();
         }
-    });    
+    }); 
+};
+
+
+
+// Appeler initLightbox lorsque le document est prêt
+jQuery(document).ready(function($) {
+    initLightbox();
 });
 
 </script>

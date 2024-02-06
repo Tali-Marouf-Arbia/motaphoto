@@ -27,9 +27,11 @@
     margin-right: 50px;
     cursor: pointer;
     opacity: 0.8;
+    transition: transform 0.3s ease;
 }
 .croix-container img.croixLightbox:hover {
     opacity: 1;
+    transform: scale(1.1);
 }
 .lightbox-content {
     display: flex;
@@ -57,7 +59,7 @@
     cursor: pointer;
     width: auto;
     opacity: 0;
-    transition: opacity 0.5s, cursor 0.5s;
+    transition: opacity 0.3s, cursor 0.3s;
 }
 #iconeFullscreen:hover {
     opacity: 1;
@@ -74,14 +76,14 @@
 .suivant-container img {
     cursor: pointer;
     opacity: 0.8;
-    transition: opacity 0.5s;
+    transition: opacity 0.3s;
 }
 .precedent-container img:hover {
     animation: moveRightLeft 0.5s ease infinite;
     opacity: 1;
 }
 .suivant-container img:hover {
-    animation: moveLeftRight 0.5s ease infinite;
+    animation: moveLeftRight 0.3s ease infinite;
     opacity: 1;
 }
 

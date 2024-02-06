@@ -5,7 +5,7 @@ jQuery(function($) { // attend le chargement du DOM et execute le code
     $('#pagination-photos').on('click', function() { // associe le clic au bouton charger +
         // console.log('clic sur bouton "charger plus"');
         if (canLoadMore) {
-            // console.log('Can load more!');// pr verif si chargement supplem  est bien autorisé
+            // console.log('Can load more!'); // pr verif si chargement supplem  est bien autorisé
             
             // effectue la requete ajax vers le serveur wp
             $.ajax({
