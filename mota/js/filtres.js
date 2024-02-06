@@ -1,5 +1,5 @@
 jQuery(document).ready(function($) {
-    console.log('script filtre.js chargé !')
+    // console.log('script filtre.js chargé !')
 
     // Personnalisation des filtres
 

@@ -2,7 +2,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // recupère la modale et les liens qui déclenchent son ouverture
     let modal = document.getElementById('myModal');
     let contactLink = document.getElementById('contact-modale');
-    let contactNavLink = document.getElementById('menu-item-10');
+    let contactNavLink = document.querySelector('.menu-item-10');
+    let contactMob = document.querySelector('ul#mega-menu .menu-item-10');
     // console.log('modale et liens de contact récupérés');
     console.log(contactNavLink);
     
@@ -25,9 +26,19 @@ document.addEventListener('DOMContentLoaded', function() {
     // au clic sur le lien CONTACT du header, ouvrir la modale
     contactNavLink.addEventListener('click', function(event) {
         event.preventDefault();
+        event.stopPropagation(); // Arrête la propagation de l'événement
         modal.style.display = 'block';
         console.log('clic sur contact header');
     });
+
+
+    contactMob.addEventListener('click', function(event) {
+        event.preventDefault();
+        event.stopPropagation(); // Arrête la propagation de l'événement
+        modal.style.display = 'block';
+        console.log('clic sur contact header');
+    });
+
 
     // Ferme la modale
     document.addEventListener('click', function(event) {
@@ -37,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Vérifie si le clic n'est pas dans la modale, ni sur les liens de contact
         if (target !== modal && !modal.contains(target) && target !== contactLink && target !== contactNavLink) {
             modal.style.display = 'none';
-            // console.log('clic hors modale');
+            console.log('clic hors modale');
         }
     });
 });
