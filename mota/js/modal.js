@@ -4,8 +4,6 @@ document.addEventListener('DOMContentLoaded', function() {
     let contactLink = document.getElementById('contact-modale');
     let contactNavLink = document.querySelector('.menu-item-10');
     let contactMob = document.querySelector('ul#mega-menu .menu-item-10');
-    // console.log('modale et liens de contact récupérés');
-    console.log(contactNavLink);
     
     // Affiche la modale
     modal.style.display = 'block';
@@ -17,9 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
             modal.style.display = 'block'; // Affiche la modale
 
             let refPhoto = $(this).attr("data-ref");
-            // console.log($(this));
             jQuery("#reference-photo").val(refPhoto);
-            // console.log('click sur le lien contact');
         });
     }
 
@@ -28,15 +24,13 @@ document.addEventListener('DOMContentLoaded', function() {
         event.preventDefault();
         event.stopPropagation(); // Arrête la propagation de l'événement
         modal.style.display = 'block';
-        console.log('clic sur contact header');
     });
 
 
     contactMob.addEventListener('click', function(event) {
         event.preventDefault();
-        event.stopPropagation(); // Arrête la propagation de l'événement
+        event.stopPropagation(); 
         modal.style.display = 'block';
-        console.log('clic sur contact header');
     });
 
 
@@ -46,9 +40,8 @@ document.addEventListener('DOMContentLoaded', function() {
         let target = event.target;
 
         // Vérifie si le clic n'est pas dans la modale, ni sur les liens de contact
-        if (target !== modal && !modal.contains(target) && target !== contactLink && target !== contactNavLink) {
+        if (target !== modal && !modal.contains(target) && target !== contactLink && target !== contactNavLink && target !== contactMob) {
             modal.style.display = 'none';
-            console.log('clic hors modale');
         }
     });
 });

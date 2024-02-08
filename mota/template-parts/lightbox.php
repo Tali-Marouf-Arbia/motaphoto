@@ -3,15 +3,14 @@
     $categories = get_the_terms(get_the_ID(), 'category');
 
     //Données pour la Lightbox
-    // Utilisation de WP_Query pour récupérer les objets du CPT "photo"
     $args = array(
-        'post_type' => 'photos', //CPT Photo
-        'posts_per_page' => -1, //-1 pour récupérer toutes les photos
+        'post_type' => 'photos', 
+        'posts_per_page' => -1, 
     );
 
-    // Vérifier si on est sur la page d'accueil ou non
+    //  si on est sur la page d'accueil 
     if (is_home() || is_front_page()) {
-        // Si on est sur la page d'accueil, ne pas filtrer par catégorie
+        //  ne pas filtrer par catégorie
     } elseif (!empty($categories)) {
         // Si une catégorie est définie pour l'article actuel, filtrer les photos par cette catégorie
         $args['tax_query'] = array(
@@ -94,35 +93,87 @@
 </div>
 
 
+
+
+
+
+
+
+
+
+
 <script>
     
 // Fonction pour initialiser la lightbox
 function initLightbox() {
+    
 
     function openLightbox(index) {
-        currentIndex = index;
-        $('#lightbox-image').attr('src', dataPhotos[currentIndex].thumbnail);
-        $('#lightbox-info-ref').text(dataPhotos[index].reference);
-        $('#lightbox-info-cat').text(dataPhotos[index].category);
+    console.log('Contenu de dataPhotos:', dataPhotos);
+
+    console.log('Ouverture de la lightbox avec l\'index:', index);
+    currentIndex = index;
+    console.log('Index courant:', currentIndex);
+        
+
+    
+
+    // Récupérer la source de l'image depuis le lien correspondant
+        var thumbnailSrc;
+        var reference, category;
+
+    if ($('.photo-apparentee').eq(index).length > 0) {
+            var photoApparentee = $('.photo-apparentee').eq(index);
+            thumbnailSrc = photoApparentee.find('.permaLink img:first').attr('src');
+            reference = photoApparentee.find('.infos-hover .ref-container').text();
+            category = photoApparentee.find('.infos-hover .cat-container').text();
+        } else if ($('.photo-bloc').eq(index).length > 0) {
+            var photoBloc = $('.photo-bloc').eq(index);
+            thumbnailSrc = photoBloc.find('.permaLink img:first').attr('src');
+            reference = photoBloc.find('.infos-hover .ref-container').text();
+            category = photoBloc.find('.infos-hover .cat-container').text();
+        }
+
+        console.log('Source miniature:', thumbnailSrc);
+        console.log('Référence:', reference);
+        console.log('Catégorie:', category);
+
+        $('#lightbox-image').attr('src', thumbnailSrc);
+        $('#lightbox-info-ref').text(reference);
+        $('#lightbox-info-cat').text(category);
         $('#myLightbox').fadeIn();
+
     }
 
-    // Événement de clic sur les éléments avec la classe 'iconeFullscreen'
+    // Clic sur bouton d ouverture
     $('.iconeFullscreen').on('click', function() {
     let index = $(this).closest('.photo-bloc, .photo-apparentee').index();
     console.log('index cliqué: ', index);
 
-    // Vérifier si l'index est valide
+    // si l'index est valide
     if (index >= 0) {
         openLightbox(index);
     } else {
-        console.error('Invalid index:', index);
+        console.error('Invalid index:');
     }
     });
+  
+    // navigation gauche/droite 
+    $('.precedent-container').on('click', function() {
+        currentIndex = (currentIndex - 1 + dataPhotos.length) % dataPhotos.length;
+        openLightbox(currentIndex);
+        console.log('clic a gauche !');
+    });
 
+    $('.suivant-container').on('click', function() {
+        currentIndex = (currentIndex + 1) % dataPhotos.length;
+        openLightbox(currentIndex);
+        // rightLightbox();
+        console.log('clic a droite ! ');
+    });
 
-    // Événement de clic sur la croix pour fermer la lightbox   
-     $('#lightbox-cross').on('click', function() {
+    // clic sur la croix pour fermer la lightbox   
+    $('#lightbox-cross').on('click', function() {
         closeLightbox();
     });
 
@@ -130,71 +181,26 @@ function initLightbox() {
         $('#myLightbox').fadeOut();
     }
 
-    // Événement de clic sur la flèche précédente
-    $('.precedent-container').on('click', function() {
-        currentIndex = (currentIndex - 1 + dataPhotos.length) % dataPhotos.length;
-        openLightbox(currentIndex);
-    });
-
-    // Événement de clic sur la flèche suivante
-    $('.suivant-container').on('click', function() {
-        currentIndex = (currentIndex + 1) % dataPhotos.length;
-        openLightbox(currentIndex);
-    });
-
-    // Ajoutez les fonctionnalités de navigation gauche/droite ici  
-    $('.precedent-lightbox').on('click', function() {
-        leftLightbox();
-    });
-
-    $('.suivant-lightbox').on('click', function() {
-        rightLightbox();
-    });
-
-    // Fonctions pour la navigation gauche/droite
-    function leftLightbox() {
-        currentIndex = (currentIndex - 1 + dataPhotos.length) % dataPhotos.length;
-        updateLightboxContent(currentIndex);
-    }
-
-    function rightLightbox() {
-        currentIndex = (currentIndex + 1) % dataPhotos.length;
-        updateLightboxContent(currentIndex);
-    }
-   
-    function updateLightboxContent(index) {
-        $('#lightbox-image').attr('src', dataPhotos[index].thumbnail);
-        $('#lightbox-info-ref').text(dataPhotos[index].reference);
-        $('#lightbox-info-cat').text(dataPhotos[index].category);
-    }
-
-    // CLIC sur Escape pour fermer la lightbox
+    // CLAVIER 
+    // Escape pour fermer la lightbox
     $(document).on('keydown', function(e) {
         if (e.key === 'Escape') {
             closeLightbox();
         }
     });
 
-    // // NAV avec le clavier
+    // NAV avec le clavier
     $(document).on('keydown', function(e) {
         if (e.key === 'ArrowLeft') {
-            leftLightbox();
+            currentIndex = (currentIndex - 1 + dataPhotos.length) % dataPhotos.length;
+            openLightbox(currentIndex);
         } else if (e.key === 'ArrowRight') {
-            rightLightbox();
+            currentIndex = (currentIndex + 1) % dataPhotos.length;
+            openLightbox(currentIndex);
         }
     }); 
-
-
-
-
-
-
-
-
-
+   
 };
-
-
 
 // Appeler initLightbox lorsque le document est prêt
 jQuery(document).ready(function($) {
@@ -202,3 +208,13 @@ jQuery(document).ready(function($) {
 });
 
 </script>
+
+
+
+
+
+
+
+
+
+

@@ -68,18 +68,43 @@ function enqueue_filtres() {
 
 add_action('wp_enqueue_scripts', 'enqueue_filtres');
 
+
 // fonction de chargement des photos via AJAX
 function load_more_posts() {
-    ob_start(); // Démarre la mise en mémoire tampon
-    $page = $_POST['page']; // recup le num de page depuis les données POST
+    $page = $_POST['page'];
+    $category = isset($_POST['category']) ? $_POST['category'] : ''; // Catégorie sélectionnée
+    $format = isset($_POST['format']) ? $_POST['format'] : ''; // Format sélectionné
+    $order = isset($_POST['order']) ? $_POST['order'] : ''; // Ordre sélectionné
 
-    $args = array( // parametres de la requete pr recup les photos
+    // Construction des arguments pour la requête WP_Query en fonction des filtres
+    $args = array(
         'post_type' => 'photos',
         'posts_per_page' => 12,
         'paged' => $page,
+        'order' => $order,
     );
 
-    $photos_query = new WP_Query($args); // init les requetes wp_Query avc les parametres definis
+    // Ajouter des conditions pour les filtres de catégorie et de format
+    if (!empty($category) && $category !== 'all') {
+        $args['tax_query'][] = array(
+            'taxonomy' => 'category',
+            'field' => 'slug',
+            'terms' => $category,
+        );
+    }
+
+    if (!empty($format) && $format !== 'all') {
+        $args['tax_query'][] = array(
+            'taxonomy' => 'format',
+            'field' => 'slug',
+            'terms' => $format,
+        );
+    }
+
+    // Exécuter la requête WP_Query avec les arguments construits
+    $photos_query = new WP_Query($args);
+
+    ob_start(); // Démarre la mise en mémoire tampon
 
     if ($photos_query->have_posts()) {
         while ($photos_query->have_posts()) : $photos_query->the_post(); // si il y a des posts, boucle
@@ -116,15 +141,18 @@ function load_more_posts() {
         // affiche la fin de galerie
         echo '<div class="mess-end-load-gallery">' .'<p>' .  'Fin de la galerie' . '</p>' . '<img id="icone-pinkCam" src="' . get_template_directory_uri() . '/assets/images/pinkCam.png">' .'</div>' ;
     }
-     // Imprime le résultat de la requête AJAX (success contenu et num de page)
-        echo json_encode(array('result' => 'success', 'content' => ob_get_clean(), 'page' => $page));
-     die(); // termine le script php
+    
+    // Récupère le contenu du tampon de sortie et le nettoie, puis l'assigne à la variable $content
+    $content = ob_get_clean();
+    
+    // Imprime le résultat de la requête AJAX (success contenu et num de page)
+    echo json_encode(array('result' => 'success', 'content' => $content, 'page' => $page));
+    die(); // termine le script php
 }
 
 // action pr gerer la resquete ajax des utilisateurs co et non-co
 add_action('wp_ajax_load_more_posts', 'load_more_posts');
 add_action('wp_ajax_nopriv_load_more_posts', 'load_more_posts');
-
 
 
 // FILTRES
@@ -135,11 +163,7 @@ function filter_photos() {
     $categorie = $_POST['category'];
     $format = $_POST['format'];
     $order = $_POST['order'];
-
-    // Enregistrement des données dans les logs pour le débogage 
-    // error_log('Catégorie : ' . print_r($categorie, true));
-    // error_log('Format : ' . print_r($format, true));
-    // error_log('Order : ' . print_r($order, true));
+    $format_sortie = $_POST['format_sortie'];
 
     // On vérifie si le contenu doit être filtré
     if ($categorie == 'all' && $format == 'all') {
@@ -205,7 +229,7 @@ function filter_photos() {
 
     // Création de la requête WP_Query avec les arguments définis
     $query = new WP_Query($args);
-
+    $tableau = array();
     // Si la requête retourne des résultats
     if ($query->have_posts()) :
         while ($query->have_posts()) : $query->the_post();
@@ -214,6 +238,8 @@ function filter_photos() {
 
             // Vérification de la non-nullité de $query (c'est probablement une erreur, car $query est une requête et non un tableau)
             if (!empty($query)) {
+                $tableau[] = ['thumbnail' => $accueil_thumbnail, 'category' => strip_tags(get_the_term_list(get_the_ID(), 'category')), 'reference' => get_field('reference')];
+                if($format_sortie != 'Json'){
                 // Affichage du bloc de photo avec des détails
                 echo '<div class="photo-bloc">'
                     . '<div class="iconeFullscreen-container">'
@@ -232,7 +258,7 @@ function filter_photos() {
                     . '</div>'
                     . '</a>'
                     . '</div>';
-            }
+            }}
         endwhile;
 
         // Réinitialisation des données de post
@@ -241,7 +267,10 @@ function filter_photos() {
         // Si aucune photo n'est trouvée
         echo 'Pas de photos trouvées<br/>';
     endif;
-
+        if ($format_sortie == 'Json'){
+            echo json_encode($tableau);
+        }
+        
     // Arrêt de l'exécution
     die();
 }

@@ -108,5 +108,31 @@ jQuery(document).ready(function($) {
                 console.error('Erreur AJAX :', error);
             }
         });
+
+        $.ajax({
+            url: ajax_object.ajax_url,
+            type: 'POST',
+            data: {
+                action: 'filter_photos',
+                category: category,
+                format: format,
+                order: order,
+                format_sortie: 'Json'
+            },
+            success: function (response) {
+                // Si la requête AJAX a réussi
+                if (response) {                   
+                    // Mettre à jour dataPhotos avec la réponse JSON
+                    dataPhotos = JSON.parse(response);
+                    console.log('Requête AJAX réussie ! réponse:', response);
+
+                } else {
+                    console.error('Erreur lors du chargement des photos. Réponse du serveur :', response);
+                }
+            },
+            error: function (error) {
+                console.error('Erreur AJAX :', error);
+            }
+        });
     });
 });
