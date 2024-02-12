@@ -7,7 +7,7 @@ description : Styles de la page d'Accueil (index.php)
 .hero-header {
     position: relative;
     width: 100%;
-    height: 60vw;
+    height: 50vw;
     background-size: cover;
     background-position: center;
     overflow: hidden;
@@ -181,38 +181,23 @@ section.justify-center{
 }
 
 .styledSelect:after {
-    content: "";
-    width: 0;
-    height: 0;
-    border: 5px solid transparent;
-    border-color: black transparent transparent transparent ;
+    content: "\2304";
+    /* width: 0;
+    height: 0; */
+    /* border: 5px solid transparent;
+    border-color: black transparent transparent transparent ; */
     position: absolute;
-    top: 22px;
-    right: 6px;
+    top: 1px;
+    right: 19px;
+    font-size: 20px;
+    /* top: 22px;
+    right: 6px; */
 }
 
 .styledSelect.active::after{
     rotate: 180deg;
     top: initial;
 }
-
-/* #order-select,
-#categorie-select,
-#format-select{
-    display: none;
-} */
-
-
-/* .styledSelect:after {
-    content: "^";
-    font-size: 14px; 
-    position: absolute;
-    top: 18px;
-    right: 6px;
-    width: 100%;
-} */
-
-
 
 .styledSelect:active, 
 .styledSelect.active {
@@ -259,7 +244,11 @@ section.justify-center{
 
 
 .options li:nth-child(1){
-    opacity: 0 !important;
+    /* opacity: 0 !important; */
+    display: none;
+}
+.options li:nth-child(2){
+    margin-top: 40px;
 }
 .options li:nth-child(4){
     display: none;

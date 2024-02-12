@@ -15,17 +15,18 @@ jQuery(function($) {
                 data: {
                     action: 'load_more_posts',
                     page: page,
-                    category: category, // Ajouter la catégorie sélectionnée à l'objet data
-                    format: format, // Ajouter le format sélectionné à l'objet data
-                    order: order // Ajouter l'ordre sélectionné à l'objet data
+                    category: category, // Ajoute la catégorie sélectionnée à l'objet data
+                    format: format, // Ajoute le format sélectionné à l'objet data
+                    order: order // Ajoute l'ordre sélectionné à l'objet data
                 },
                 success: function(response) {
                     var result = JSON.parse(response);
                     if (result.result === 'success') {
                         $('.photos-accueil-container').append(result.content);
-                        page++;
+                        page++; 
                         if (result.content.indexOf('Fin de la galerie') !== -1) {
                             $('.pagination-accueil-container').hide();
+                                
                         }
                     } else {
                         console.log('Error in response');
@@ -38,7 +39,7 @@ jQuery(function($) {
 }
 
 
-// Appeler initLightbox lorsque le document est prêt
+// Appeler lorsque le document est prêt
 jQuery(document).ready(function($) {
     initPagination();
 });

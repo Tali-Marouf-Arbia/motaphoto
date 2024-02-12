@@ -124,8 +124,7 @@ jQuery(document).ready(function($) {
                 if (response) {                   
                     // Mettre à jour dataPhotos avec la réponse JSON
                     dataPhotos = JSON.parse(response);
-                    console.log('Requête AJAX réussie ! réponse:', response);
-
+                    console.log('Requête AJAX réussie !  réponse:', response);
                 } else {
                     console.error('Erreur lors du chargement des photos. Réponse du serveur :', response);
                 }

@@ -108,7 +108,7 @@ get_header(); ?>
             <?php
             $args_accueil_posts = array(
                 'post_type' => 'photos',
-                'posts_per_page' => 12,
+                'posts_per_page' => 8,
                 'orderby' => 'ASC',
             
             );
@@ -152,6 +152,7 @@ get_header(); ?>
     </div>
 
 </main>
+
 
 
 <!-- script js responsable du HOVER  --> 

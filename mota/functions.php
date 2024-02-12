@@ -68,6 +68,16 @@ function enqueue_filtres() {
 
 add_action('wp_enqueue_scripts', 'enqueue_filtres');
 
+// enqueue filtre.js
+function enqueue_lightbox() {
+    wp_enqueue_script('lightbox-script', get_template_directory_uri() . '/js/lightbox.js', array('jquery'), '1.0', true);
+    
+    // Transmettez la variable ajax_url au script
+    wp_localize_script('lightbox-script', 'ajax_object', array('ajax_url' => admin_url('admin-ajax.php')));
+}
+
+add_action('wp_enqueue_scripts', 'enqueue_lightbox');
+
 
 // fonction de chargement des photos via AJAX
 function load_more_posts() {
@@ -79,7 +89,7 @@ function load_more_posts() {
     // Construction des arguments pour la requête WP_Query en fonction des filtres
     $args = array(
         'post_type' => 'photos',
-        'posts_per_page' => 12,
+        'posts_per_page' => 8,
         'paged' => $page,
         'order' => $order,
     );
@@ -107,6 +117,7 @@ function load_more_posts() {
     ob_start(); // Démarre la mise en mémoire tampon
 
     if ($photos_query->have_posts()) {
+
         while ($photos_query->have_posts()) : $photos_query->the_post(); // si il y a des posts, boucle
             // Affiche le contenu de chaque post
             ?>
@@ -170,7 +181,7 @@ function filter_photos() {
         // Si on veut tout sans filtre
         $args = array(
             'post_type' => 'photos',
-            'posts_per_page' => 12,
+            'posts_per_page' => 8,
             'paged' => $page,
             'order' => $order,
         );
@@ -178,7 +189,7 @@ function filter_photos() {
         // Si on veut seulement toutes les catégories, on filtre uniquement sur le format
         $args = array(
             'post_type' => 'photos',
-            'posts_per_page' => 12,
+            'posts_per_page' => 8,
             'paged' => $page,
             'tax_query' => array(
                 array(
@@ -193,7 +204,7 @@ function filter_photos() {
         // Si on veut seulement tous les formats, on filtre uniquement sur les catégories
         $args = array(
             'post_type' => 'photos',
-            'posts_per_page' => 12,
+            'posts_per_page' => 8,
             'paged' => $page,
             'tax_query' => array(
                 array(
@@ -208,7 +219,7 @@ function filter_photos() {
         // Sinon, c'est que l'on filtre à la fois les formats et les catégories
         $args = array(
             'post_type' => 'photos',
-            'posts_per_page' => 12,
+            'posts_per_page' => 8,
             'paged' => $page,
             'tax_query' => array(
                 'relation' => 'AND',
@@ -231,22 +242,23 @@ function filter_photos() {
     $query = new WP_Query($args);
     $tableau = array();
     // Si la requête retourne des résultats
-    if ($query->have_posts()) :
-        while ($query->have_posts()) : $query->the_post();
-            $accueil_post_id = get_the_ID();
-            $accueil_thumbnail = get_the_post_thumbnail($accueil_post_id, 'large');
-
-            // Vérification de la non-nullité de $query (c'est probablement une erreur, car $query est une requête et non un tableau)
-            if (!empty($query)) {
-                $tableau[] = ['thumbnail' => $accueil_thumbnail, 'category' => strip_tags(get_the_term_list(get_the_ID(), 'category')), 'reference' => get_field('reference')];
-                if($format_sortie != 'Json'){
+if ($query->have_posts()) :
+    while ($query->have_posts()) : $query->the_post();
+        $accueil_post_id = get_the_ID();
+        $accueil_thumbnail_id = get_post_thumbnail_id($accueil_post_id);
+        $accueil_thumbnail_src = wp_get_attachment_image_src($accueil_thumbnail_id, 'large');
+        
+        // Vérification de la non-nullité de $query (c'est probablement une erreur, car $query est une requête et non un tableau)
+        if (!empty($query)) {
+            $tableau[] = ['thumbnail' => $accueil_thumbnail_src[0], 'category' => strip_tags(get_the_term_list(get_the_ID(), 'category')), 'reference' => get_field('reference')];
+            if($format_sortie != 'Json'){
                 // Affichage du bloc de photo avec des détails
                 echo '<div class="photo-bloc">'
                     . '<div class="iconeFullscreen-container">'
                     . '<img id="iconeFullscreen" class="iconeFullscreen" src="' . get_template_directory_uri() . '/assets/images/iconFullscreen.png" alt="bouton d\'ouverture de la lightbox" />'
                     . '</div>'
                     . '<a class="permaLink" href="' . get_permalink() . '">'
-                    . $accueil_thumbnail
+                    . '<img src="' . $accueil_thumbnail_src[0] . '" alt="" />' // Utilisation de l'URL de l'image sans les balises <img>
                     . '<img src="' . get_template_directory_uri() . '/assets/images/eye.png" class="eye-icone"/>'
                     . '<div class="infos-hover">'
                     . '<div class="ref-container">'
@@ -258,17 +270,19 @@ function filter_photos() {
                     . '</div>'
                     . '</a>'
                     . '</div>';
-            }}
-        endwhile;
+            }
+        }
+    endwhile;
 
-        // Réinitialisation des données de post
-        wp_reset_postdata();
-    else :
-        // Si aucune photo n'est trouvée
-        echo 'Pas de photos trouvées<br/>';
-    endif;
+    // Réinitialisation des données de post
+    wp_reset_postdata();
+else :
+    // Si aucune photo n'est trouvée
+    echo 'Pas de photos trouvées<br/>';
+endif;
         if ($format_sortie == 'Json'){
-            echo json_encode($tableau);
+            echo json_encode($tableau);          
+
         }
         
     // Arrêt de l'exécution

@@ -88,10 +88,13 @@
 }
 
 .lightbox-image-container{
-    max-width: 90%;
+    /* max-width: 90%; */
     max-height: 850px !important;
     /* overflow: clip; */
-    overflow: scroll;
+    overflow: auto;
+}
+.lightbox-image-container img{
+    width: 100%;
 }
 #img-next-mob{
     display: none;
