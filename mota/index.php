@@ -94,8 +94,6 @@ get_header(); ?>
         </div>
     </div>
 
-
-
     <!-- Bloc de photos accueil -->
     <section class="justify-center" >
         <div class="photos-accueil-container" id="photos-accueil-container">
@@ -147,33 +145,6 @@ get_header(); ?>
     </div>
 
 </main>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <!-- script js responsable du HOVER  --> 
 <script>
