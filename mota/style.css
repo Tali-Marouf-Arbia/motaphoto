@@ -146,13 +146,10 @@ Tag: photo
 body{
     margin: 0;
 }
-
 .bigContainer{
     margin: 0 auto;
     max-width: 1440px;
 }
-
-
 /********************* css généraux titres, descr photo et paragraphe ************************/
 /**desktop**/
 h1{
@@ -161,26 +158,22 @@ h1{
     font-style: italic;
     font-size: 96px;
 }
-
 h2{
     font-family: 'spacemono';
     font-weight: 400;
     font-style: italic;
     font-size: 66px;
 }
-
 .desc-photo{
     font-family: 'spacemono';
     font-weight: 400;
     font-size: 14px;
 }
-
 .p{
     font-family: 'poppins';
     font-weight: 300;
     font-size: 14px;
 }
-
 a{
     text-decoration: none !important;
 }
@@ -192,7 +185,6 @@ a{
         font-style: italic;
         font-size: 28px;
     }
-
     h2{
         font-family: 'spacemono';
         font-weight: 400;
@@ -200,8 +192,6 @@ a{
         font-size: 46px;
     }
 }
-
-
 /*********************************** HEADER / FOOTER *********************************/
 header,footer{
     display: flex;
@@ -213,24 +203,19 @@ header,footer{
     font-size: 16px;
     height: 80px;
 }
-
 header{
     box-shadow: 0px 4px 14px 10px #00000008;
 }
-
 img.logo{
     margin-left: 146px;
 }
-
 .menu-header-container{
     margin-right: 106px;
 }
-
 #menu-header, #menu-footer{
     display: flex;
     flex-direction: row;
 }
-
 #menu-header li,
 #menu-footer li {
     font-family: "SpaceMono";
@@ -238,57 +223,45 @@ img.logo{
     margin-right: 40px !important;
     color: black;
 }
-
 #menu-footer li{
     margin-right: 3vw !important;
 }
-
 #menu-header li a,
 #menu-footer li a{
     text-decoration: none;
     color: #000000;
 }
-
 #menu-header li a:hover,
 #menu-footer li a:hover{
     font-weight: 600;
 }
-
 footer{
     justify-content: center !important;
     height: 40px !important;
     border-top : 1px solid black;
     margin-top: 20px;
 }
-
 .burger-menu {
     display: none;
 }
-
 .menu-open.active-mobile {
     display: flex;
 }
-
 #mega-menu{
     display: none;
 }
-
 /********************************** HEADER / FOOTER MOBIL ********************************/
 @media screen and (max-width: 850px) {
     /**HEADER**/
-
     #header{
         height: 72px;
     }
-
     .menu-header-container {
         margin-right: 0;
     }
-
     #menu-header {
         display: none;
     }
-
     /*********** Menu Mobile ***********/
     .active-mobile {
         display: flex !important;
@@ -297,7 +270,6 @@ footer{
     .inactive-mobile {
         display: none !important;
     }
-
     #mega-menu {
         display: flex;
         flex-direction: column;
@@ -308,23 +280,18 @@ footer{
         text-align: center;
         justify-content: center;
     }
-
     #mega-menu li {
         padding-top: 20px;
     }
-
     #mega-menu a {
         color: white;
         text-decoration: none;
         animation: fadeIn 4s forwards; /*effet d apparition des liens*/
     }
-
     #mega-menu a:hover {
         font-weight: 600;
     }
-
     /** effet d apparition du menu mobile **/
-
     @keyframes fadeIn {
         from {
             opacity: 0;
@@ -333,25 +300,20 @@ footer{
             opacity: 1;
         }
     }
-
     .fade-in{
         animation: fadeIn 3s forwards;
     }
-
     .logo {
         height: 9px !important;
         margin-left: 20px !important;
     }
-
     /**********ANIMATION OUVERURE / FERMETURE MENU MOBILE*******/
-
     /****** icone burger ****/
     .burger-menu {
     display: block;
     margin-right: 20px;
     cursor: pointer;
     }
-
     /***** barres icone burger ****/
     .bar {
     width: 27px;
@@ -360,25 +322,19 @@ footer{
     margin: 4px 0;
     transition: 1s;
     }
-
     /******* icne burger actif ****/
     .burger-menu.change .bar{
         height: 2px;
     }
-
     .burger-menu.change .bar:nth-child(1) {
     transform: rotate(-45deg) translate(-7px, 3px);
-    
     }
-  
     .burger-menu.change .bar:nth-child(2) {
         opacity: 0;
     }
-  
     .burger-menu.change .bar:nth-child(3) {
         transform: rotate(45deg) translate(-5px, -2px);
     }
-
     /*****FOOTER MOBILE****/
     footer{
         height: 208px !important;
@@ -387,18 +343,15 @@ footer{
         font-size: 16px !important;
         margin-top: 0 !important;
     }
-
     footer p{
         margin: -15px 0 0 0;
     }
-
     #menu-footer {
         display: flex;
         flex-direction: column;
         text-align: center;
         padding: 0 !important;
     }
-
     #menu-footer li {
         padding-bottom: 30px;
         font-size : 16px;

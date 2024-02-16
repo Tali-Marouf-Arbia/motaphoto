@@ -112,13 +112,11 @@ description : Styles pour single-photos
     justify-content: center;
     overflow: hidden;
 }
-
 .miniature-container img{
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
-
 .fleches-container{
     display: flex;
     justify-content: space-between;
@@ -135,7 +133,6 @@ description : Styles pour single-photos
         transform: translateX(0);
     }
 }
-
 .arrow-left:hover {
     animation: moveRightLeft 0.5s ease infinite;
 }
@@ -151,35 +148,28 @@ description : Styles pour single-photos
         transform: translateX(0);
     }
 }
-
 .arrow-right:hover {
     animation: moveLeftRight 0.5s ease infinite;
 }
-
 .arrow-left,
 .arrow-right{
     width: 25px;
 }
-
-
 /*****section autres photos****/
 .autre-post-aera{
     border-top: 1px black solid;
 }
-
 .autre-post-title{
     font-family: 'spacemono';
     font-size: 18px;
     font-weight: 400;
     margin: 50px 0 60px 0;
 }
-
 .bouton-all-photos{
     display: flex;
     justify-content: center;
     margin: 40px 0 50px 0;
 }
-
 /********** section photos apparentées ***********/
 .photos-apparentees-container{
     display: flex;
@@ -187,22 +177,17 @@ description : Styles pour single-photos
     justify-content: space-between;
     margin-bottom: 75px;
 }
-
 div.photo-apparentee{
     max-height: 55vh;
     max-width: 50%;
     /* margin-right: 20px; */
 }
-
 div.photo-apparentee:nth-child(1){
     margin-right: 10px;
 }
-
 div.photo-apparentee:nth-child(2){
     margin-left: 10px;
 }
-
-
 div.photo-apparentee img{
     height: 100%;
     width: 100%;
@@ -230,30 +215,24 @@ div.photo-apparentee img{
         justify-content: center;
         margin: 0 50px 10px 50px;
     }
-
-
     .contact-post-aera{
         width: 100%;
         flex-direction: column;
         margin-left: 50px;
         align-items: normal;
     }
-
     .miniature-aera{
         display: none;
     }
-
     .post-infos{
         width: 100%;
         margin: 0;
         padding-bottom: 25px !important;
     }
-
     .infosPost{
         max-width: 100% !important;
         margin: 0 50px;
     }
-
     .post-infos h2, .post-infos p{
         width: 100%;
     }
@@ -262,71 +241,57 @@ div.photo-apparentee img{
         margin: 0 !important;
         line-height: 100%;
     }
-
     .contact-post-container{
         margin-bottom: 25px;
     }
-
     .contact-post-aera div{
         width: 100%;
         /* margin-left: 75px; */
     }
-
-
     .bouton-single-photo{
         display: contents;
         /* width: 263px; */
     }
-
     .bouton-single-photo a{
         max-width: 263px;
     }
-
     .autre-post-title{
         display: flex;
         justify-content: center;
         margin: 25px 20px;
     }
-
     .photos-apparentees-container{
         display: flex;
         flex-direction: column !important;
         margin-bottom: 0;
     }
-
     .photo-apparentee{
         max-width: 100% !important;
         margin: 0 20px 20px 20px;
         max-height: inherit !important;
         height: 80vw !important;
     }
-
     div.photo-apparentee:nth-child(1){
         margin: 0 20px 20px 20px;
     }
-    
+
     div.photo-apparentee:nth-child(2){
         margin: 0 20px 20px 20px;
     }
-
     .photo-apparentee img{
         height: 100% !important;
     }
-
     #redirection-accueil{
         margin: 0 50px 15px 50px; 
     }
-
     #redirection-accueil a{
         color: #FE5858;
         transition: transform 0.3s ease;
     }
-
     #redirection-accueil a:hover{
         color: #E00000;
         transform: scale(1.2) !important;
         transition: transform 0.3s ease;
- 
     }
 }
 

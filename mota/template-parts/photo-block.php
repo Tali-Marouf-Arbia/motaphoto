@@ -5,7 +5,7 @@
     // WP_Query pour récupérer les articles de la meme catégorie
     $args = array(
         'post_type' => 'photos', 
-        'posts_per_page' => 2, // Nombre de photos à afficher
+        'posts_per_page' => 2, 
         'post__not_in' => array($post_id), // N inclue pas la photo actuelle
         'tax_query' => array(
             array(

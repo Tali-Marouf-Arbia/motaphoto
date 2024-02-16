@@ -157,13 +157,10 @@ get_header(); ?>
 
         if (eyeIcone) {
             photoBloc.addEventListener('mouseenter', function () {
-                // console.log('Mouse entered:', photoBloc);
                 eyeIcone.style.opacity = 1;
-
                 if (infosHover) {
                     infosHover.style.opacity = 1;
                 }
-
                 if (iconFullscreen) {
                     iconFullscreen.style.opacity = 1;
                 }
@@ -172,11 +169,9 @@ get_header(); ?>
             photoBloc.addEventListener('mouseleave', function () {
                 // console.log('Mouse left:', photoBloc);
                 eyeIcone.style.opacity = 0;
-
                 if (infosHover) {
                     infosHover.style.opacity = 0;
                 }
-
                 if (iconFullscreen) {
                     iconFullscreen.style.opacity = 0;
                 }
@@ -190,25 +185,16 @@ get_header(); ?>
 
     // Observe les mutations pour les nouv photos
     let observer = new MutationObserver(function (mutations) {
-        // console.log('mutations observée:', mutations);
 
         // Cette fonction sera appelée CHAQUE FOIS qu'une mutation est détectée
-
         mutations.forEach(function (mutation) {
-            // console.log('mutation type:', mutation.type);
             // Pour chaque mutation détectée dans la liste des mutations
-
             if (mutation.type === 'childList') {
-                // console.log('childList mutation detectée');
                 // Si le type de mutation est une modification de la liste des enfants
-
                 mutation.addedNodes.forEach(function (addedNode) {
-                    // console.log('addedNode:', addedNode);
                     // Pour chaque Node ajouté lors de la mutation
-
                     if (addedNode.classList && addedNode.classList.contains('photo-bloc')) {
                         // Si le noeu ajouté a une liste de classes et contient la classe 'photo-bloc'
-
                         hover(addedNode);
                         initLightbox();
                     }
@@ -217,12 +203,8 @@ get_header(); ?>
         });
     });
 
-
     // Configurer et lancer l'observateur
     observer.observe(document.body, { childList: true, subtree: true });
-
-
-
 });
 </script>
 

@@ -13,7 +13,6 @@ article.post-6{
     margin-top: 25px;
     background-color: #FFD6D6;
 }
-
 div.mentions-aera,
 div.apropos-aera{
     display: flex;
@@ -21,20 +20,17 @@ div.apropos-aera{
     flex-direction: column;
     border: #000 solid 2px;
 }
-
 .mentions-aera p,
 .apropos-aera p{
     font-size: 20px;
     font-family: 'spacemono';
     padding: 0 10px !important;
 }
-
 .mentions-aera figure,
 .apropos-aera figure{
     margin-bottom: -10px !important;
     margin-top: -20px;
 }
-
 .mentions-aera figure img,
 .apropos-area figure img{
     width: 100%;

@@ -11,7 +11,6 @@ function initLightbox() {
             var categorie = $(this).find('.cat-container').text();
             var data = { 'thumbnail': thumbnail, 'reference': reference, 'category': categorie };
             dataPhotos.push(data);
-            // console.log('Contenu de dataPhotos:', dataPhotos);
         });
         // Mettre à jour le contenu de la lightbox avec les données de la photo
         $('#lightbox-image').attr('src', dataPhotos[index].thumbnail);

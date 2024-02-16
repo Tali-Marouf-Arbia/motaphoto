@@ -137,9 +137,6 @@ get_header();
     </div>
   </div>
 
-
-
-
   <div class="autre-post-aera">
     <div>
         <h3 class="autre-post-title">VOUS AIMEREZ AUSSI</h3>
@@ -151,13 +148,12 @@ get_header();
     ?>
     </div>
   </div>
-
-
 </div> 
 
+<!-- script js responsable de l affichage de la miniatture  au survol des flêches - zone miniature -->
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-    // Récupérer les URL des miniatures des articles suivant et précédent
+document.addEventListener('DOMContentLoaded', function() {
+// Récupérer les URL des miniatures des articles suivant et précédent
 var prevThumbnailUrl = '<?php echo $prev_custom_post ? get_the_post_thumbnail_url($prev_custom_post, 'custom-thumbnail') : ''; ?>';
 var nextThumbnailUrl = '<?php echo $next_custom_post ? get_the_post_thumbnail_url($next_custom_post, 'custom-thumbnail') : ''; ?>';
 
@@ -191,7 +187,6 @@ document.querySelectorAll('.arrow-left, .arrow-right').forEach(function(arrow) {
   </script>
 
 <!-- script js responsable de la gestion du hover sur les photos apparentées page de photo unique -->
-
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     let photoApparentees = document.querySelectorAll('.photo-apparentee');
@@ -210,12 +205,10 @@ document.addEventListener('DOMContentLoaded', function () {
         photoApparentee.addEventListener('mouseleave', function () {
             eyeIcone.style.opacity = 0;
             infosHover.style.opacity = 0;
-            iconFullscreen.style.opacity = 0; // Gestion de l'opacité de l'icône fullscreen
+            iconFullscreen.style.opacity = 0; 
         });
     });
 });
-
-
 </script>
 
 <?php

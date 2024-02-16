@@ -86,11 +86,8 @@
     animation: moveLeftRight 0.3s ease infinite;
     opacity: 1;
 }
-
 .lightbox-image-container{
-    /* max-width: 90%; */
     max-height: 850px !important;
-    /* overflow: clip; */
     overflow: auto;
 }
 .lightbox-image-container img{
@@ -104,17 +101,13 @@
 @media screen and (max-width:850px) {
     #lightbox-image{
         width: 100%;
-    
     }
-
     .precedent-container, .suivant-container {
         width: inherit;
     }
-
     .precedent-container img, .suivant-container img{
         width: 70px;
     }
-
     #img-next-desk{
         display: none;
     }

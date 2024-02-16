@@ -14,14 +14,14 @@ get_header();
 
 <main class="main-post">
     <?php
-        while (have_posts()) : // Tant qu'il y a des articles à afficher, boucle.
-          the_post(); // Charge l'article actuel.
+        while (have_posts()) :
+          the_post();
     ?>
 
     <div class="post">
     	<h2 class="post-title"><?php the_title(); ?></h2>
         <div class="post-content">
-            <?php the_content(); // Affiche le contenu de l'article. ?>
+            <?php the_content();?>
         </div>
 	</div>
     <?php

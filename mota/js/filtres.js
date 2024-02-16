@@ -68,7 +68,6 @@ jQuery(document).ready(function($) {
         // Ajoute ensuite la classe 'selected' à l'élément sur lequel l'utilisateur a cliqué
         $(this).addClass('selected');
         }); 
-
     });
 
     // Filtre les photos lorsqu'un filtre est changé
@@ -77,7 +76,6 @@ jQuery(document).ready(function($) {
         initPagination(); // Réinitialise la pagination
         initLightbox();
         $('.pagination-accueil-container').show();
-
 
         // Récupere les valeurs des filtres sélectionnés 
         let category = $('#categorie-select').val(); 
@@ -97,8 +95,6 @@ jQuery(document).ready(function($) {
             success: function (response) {
                 // Si la requête AJAX a reussi
                 if (response) {
-                    // console.log('reponse requete ajax filter_photos:',response);
-
                     // Affiche la rep dans '.photos-accueil-container'
                     $('#photos-accueil-container').html(response);
                 } else {
@@ -109,30 +105,5 @@ jQuery(document).ready(function($) {
                 console.error('Erreur AJAX :', error);
             }
         });
-
-// =        $.ajax({
-//             url: ajax_object.ajax_url,
-//             type: 'POST',
-//             data: {
-//                 action: 'filter_photos',
-//                 category: category,
-//                 format: format,
-//                 order: order,
-//                 format_sortie: 'Json'
-//             },
-//             success: function (response) {
-//                 // Si la requête AJAX a réussi
-//                 if (response) {                   
-//                     // Mettre à jour dataPhotos avec la réponse JSON
-//                     // dataPhotos = JSON.parse(response);
-//                     console.log('Requête AJAX réussie !  réponse:', response);
-//                 } else {
-//                     console.error('Erreur lors du chargement des photos. Réponse du serveur :', response);
-//                 }
-//             },
-//             error: function (error) {
-//                 console.error('Erreur AJAX :', error);
-//             }
-//         });
     });
 });
