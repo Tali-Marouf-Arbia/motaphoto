@@ -24,7 +24,7 @@
             $related_thumbnail = get_the_post_thumbnail($related_post_id, 'large'); 
 
             if (!empty($related_thumbnail)) {
-                echo '<div class="photo-apparentee">'
+                echo '<div class="photo-apparentee photo-bloc">'
                     . '<div class="iconeFullscreen-container">'
                     . '<img id="iconeFullscreen" class="iconeFullscreen" src="' . get_template_directory_uri() . '/assets/images/iconFullscreen.png" alt="bouton d\'ouverture de la lightbox" />'
                     . '</div>'                            

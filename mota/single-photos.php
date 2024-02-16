@@ -138,6 +138,8 @@ get_header();
   </div>
 
 
+
+
   <div class="autre-post-aera">
     <div>
         <h3 class="autre-post-title">VOUS AIMEREZ AUSSI</h3>
@@ -152,6 +154,41 @@ get_header();
 
 
 </div> 
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    // Récupérer les URL des miniatures des articles suivant et précédent
+var prevThumbnailUrl = '<?php echo $prev_custom_post ? get_the_post_thumbnail_url($prev_custom_post, 'custom-thumbnail') : ''; ?>';
+var nextThumbnailUrl = '<?php echo $next_custom_post ? get_the_post_thumbnail_url($next_custom_post, 'custom-thumbnail') : ''; ?>';
+
+// Précharger les images
+var prevThumbnailImage = new Image();
+prevThumbnailImage.src = prevThumbnailUrl;
+var nextThumbnailImage = new Image();
+nextThumbnailImage.src = nextThumbnailUrl;
+
+// Fonction pour afficher la miniature au survol de la flèche précédente
+document.querySelector('.arrow-left').addEventListener('mouseenter', function() {
+    if (prevThumbnailUrl) {
+        document.querySelector('.miniature-container').innerHTML = '<img src="' + prevThumbnailUrl + '" alt="photo précédente" />';
+    }
+});
+
+// Fonction pour afficher la miniature au survol de la flèche suivante
+document.querySelector('.arrow-right').addEventListener('mouseenter', function() {
+    if (nextThumbnailUrl) {
+        document.querySelector('.miniature-container').innerHTML = '<img src="' + nextThumbnailUrl + '" alt="photo suivante" />';
+    }
+});
+
+// Fonction pour réinitialiser la miniature à son état initial lorsque la souris quitte la flèche
+document.querySelectorAll('.arrow-left, .arrow-right').forEach(function(arrow) {
+    arrow.addEventListener('mouseleave', function() {
+        document.querySelector('.miniature-container').innerHTML = '<?php echo !empty($thumbnail) ? '<div class="miniature-container">' . $next_post_thumbnail . '</div>' : 'Aucune miniature définie.'; ?>';
+    });
+});
+});
+  </script>
 
 <!-- script js responsable de la gestion du hover sur les photos apparentées page de photo unique -->
 

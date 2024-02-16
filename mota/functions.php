@@ -68,7 +68,7 @@ function enqueue_filtres() {
 
 add_action('wp_enqueue_scripts', 'enqueue_filtres');
 
-// enqueue filtre.js
+// enqueue lightbox.js
 function enqueue_lightbox() {
     wp_enqueue_script('lightbox-script', get_template_directory_uri() . '/js/lightbox.js', array('jquery'), '1.0', true);
     
@@ -83,8 +83,8 @@ add_action('wp_enqueue_scripts', 'enqueue_lightbox');
 function load_more_posts() {
     $page = $_POST['page'];
     $category = isset($_POST['category']) ? $_POST['category'] : ''; // Catégorie sélectionnée
-    $format = isset($_POST['format']) ? $_POST['format'] : ''; // Format sélectionné
-    $order = isset($_POST['order']) ? $_POST['order'] : ''; // Ordre sélectionné
+    $format = isset($_POST['format']) ? $_POST['format'] : ''; 
+    $order = isset($_POST['order']) ? $_POST['order'] : ''; 
 
     // Construction des arguments pour la requête WP_Query en fonction des filtres
     $args = array(
@@ -93,7 +93,6 @@ function load_more_posts() {
         'paged' => $page,
         'order' => $order,
     );
-
     // Ajouter des conditions pour les filtres de catégorie et de format
     if (!empty($category) && $category !== 'all') {
         $args['tax_query'][] = array(
@@ -102,7 +101,6 @@ function load_more_posts() {
             'terms' => $category,
         );
     }
-
     if (!empty($format) && $format !== 'all') {
         $args['tax_query'][] = array(
             'taxonomy' => 'format',
@@ -110,18 +108,29 @@ function load_more_posts() {
             'terms' => $format,
         );
     }
-
     // Exécuter la requête WP_Query avec les arguments construits
     $photos_query = new WP_Query($args);
-
     ob_start(); // Démarre la mise en mémoire tampon
+    // Créer un tableau pour stocker les nouvelles données de photos
+    $new_photos_data = array();
 
     if ($photos_query->have_posts()) {
+        while ($photos_query->have_posts()) : $photos_query->the_post();
+            // Collecter les données de chaque nouvelle photo
+            $thumbnail_url = get_the_post_thumbnail_url();
+            $reference = get_post_meta(get_the_ID(), 'reference', true);
+            $categories = get_the_terms(get_the_ID(), 'category');
+            $category_name = !empty($categories) ? $categories[0]->name : '';
 
-        while ($photos_query->have_posts()) : $photos_query->the_post(); // si il y a des posts, boucle
-            // Affiche le contenu de chaque post
+            // Ajouter les données de la nouvelle photo au tableau
+            $new_photos_data[] = array(
+                'thumbnail' => $thumbnail_url,
+                'reference' => $reference,
+                'category' => $category_name
+            );
+            // Afficher le contenu de chaque post
             ?>
-            <div class="photo-bloc">
+            <div class="photo-bloc photo-block">
                 <?php
                 $accueil_post_id = get_the_ID();
                 $accueil_thumbnail = get_the_post_thumbnail($accueil_post_id, 'large');
@@ -129,7 +138,7 @@ function load_more_posts() {
                     echo '<div class="iconeFullscreen-container">'
                         . '<img id="iconeFullscreen" class="iconeFullscreen" src="' . get_template_directory_uri() . '/assets/images/iconFullscreen.png" alt="bouton d\'ouverture de la lightbox" />'
                     . '</div>'
-                    . '<a class="permaLink" href="' . get_permalink() . '">' 
+                    . '<a class="permaLink photo-thumbnail" href="' . get_permalink() . '">' 
                     . $accueil_thumbnail 
                     . '<img src="' . get_template_directory_uri() . '/assets/images/eye.png" class="eye-icone"/>'
                     . '<div class="infos-hover">'
@@ -141,24 +150,23 @@ function load_more_posts() {
                         . '</div>'
                     . '</div>'
                 . '</a>';
-                    
                 }
                 ?>
             </div>
             <?php
         endwhile;
-        wp_reset_postdata(); // reinit les donnees du post
+        wp_reset_postdata(); // Réinitialiser les données de post
     } else {
         // affiche la fin de galerie
         echo '<div class="mess-end-load-gallery">' .'<p>' .  'Fin de la galerie' . '</p>' . '<img id="icone-pinkCam" src="' . get_template_directory_uri() . '/assets/images/pinkCam.png">' .'</div>' ;
     }
     
-    // Récupère le contenu du tampon de sortie et le nettoie, puis l'assigne à la variable $content
+    // Récupérer le contenu du tampon de sortie et le nettoyer, puis l'assigner à la variable $content
     $content = ob_get_clean();
     
-    // Imprime le résultat de la requête AJAX (success contenu et num de page)
-    echo json_encode(array('result' => 'success', 'content' => $content, 'page' => $page));
-    die(); // termine le script php
+    // Imprimer le résultat de la requête AJAX (contenu du succès et numéro de page)
+    echo json_encode(array('result' => 'success', 'content' => $content, 'page' => $page, 'new_photos_data' => $new_photos_data));
+    die(); // Termine le script PHP
 }
 
 // action pr gerer la resquete ajax des utilisateurs co et non-co
@@ -253,12 +261,12 @@ if ($query->have_posts()) :
             $tableau[] = ['thumbnail' => $accueil_thumbnail_src[0], 'category' => strip_tags(get_the_term_list(get_the_ID(), 'category')), 'reference' => get_field('reference')];
             if($format_sortie != 'Json'){
                 // Affichage du bloc de photo avec des détails
-                echo '<div class="photo-bloc">'
+                echo '<div class="photo-bloc photo-block">'
                     . '<div class="iconeFullscreen-container">'
                     . '<img id="iconeFullscreen" class="iconeFullscreen" src="' . get_template_directory_uri() . '/assets/images/iconFullscreen.png" alt="bouton d\'ouverture de la lightbox" />'
                     . '</div>'
                     . '<a class="permaLink" href="' . get_permalink() . '">'
-                    . '<img src="' . $accueil_thumbnail_src[0] . '" alt="" />' // Utilisation de l'URL de l'image sans les balises <img>
+                    . '<img class="wp-post-image" src="' . $accueil_thumbnail_src[0] . '" alt="" />' // Utilisation de l'URL de l'image sans les balises <img>
                     . '<img src="' . get_template_directory_uri() . '/assets/images/eye.png" class="eye-icone"/>'
                     . '<div class="infos-hover">'
                     . '<div class="ref-container">'
@@ -273,7 +281,6 @@ if ($query->have_posts()) :
             }
         }
     endwhile;
-
     // Réinitialisation des données de post
     wp_reset_postdata();
 else :
@@ -282,7 +289,6 @@ else :
 endif;
         if ($format_sortie == 'Json'){
             echo json_encode($tableau);          
-
         }
         
     // Arrêt de l'exécution

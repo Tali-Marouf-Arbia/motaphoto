@@ -23,15 +23,9 @@ get_header(); ?>
     <div class="hero-header" style="background-image: url('<?php echo $original_image_url; ?>');">
     <h1 class="hero-title ">PHOTOGRAPHIE EVENT</h1>
     </div>
-
-
     <?php endwhile; ?>
 
     <?php wp_reset_postdata(); // Réinitialise les données de publication à leur état d'origine ?>
-
-
-
-
 
     <!-- Section filtres -->
     <?php
@@ -120,11 +114,11 @@ get_header(); ?>
                 $accueil_thumbnail = get_the_post_thumbnail($accueil_post_id,'large');
                     if (!empty($photos_query)) {
                     
-                        echo '<div class="photo-bloc">'
+                        echo '<div class="photo-bloc photo-block">'
                         . '<div class="iconeFullscreen-container">'
                             . '<img id="iconeFullscreen" class="iconeFullscreen" src="' . get_template_directory_uri() . '/assets/images/iconFullscreen.png" alt="bouton d\'ouverture de la lightbox" />'
                         . '</div>'
-                        . '<a class="permaLink" href="' . get_permalink() . '">' 
+                        . '<a class="permaLink photo-thumbnail" href="' . get_permalink() . '">' 
                             . $accueil_thumbnail 
                             . '<img src="' . get_template_directory_uri() . '/assets/images/eye.png" class="eye-icone"/>'
                             . '<div class="infos-hover">'
@@ -142,6 +136,7 @@ get_header(); ?>
                         echo 'Aucunes photos trouvées';
                     }
             endwhile;
+            
             ?>
         </div>
     </section>
@@ -155,6 +150,31 @@ get_header(); ?>
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!-- script js responsable du HOVER  --> 
 <script>
 
@@ -163,10 +183,6 @@ get_header(); ?>
         let eyeIcone = photoBloc.querySelector('.eye-icone');
         let infosHover = photoBloc.querySelector('.infos-hover');
         let iconFullscreen = photoBloc.querySelector('#iconeFullscreen');
-
-        // console.log('eyeIcone:', eyeIcone);
-        // console.log('infosHover:', infosHover);
-        // console.log('iconFullscreen:', iconFullscreen);
 
         if (eyeIcone) {
             photoBloc.addEventListener('mouseenter', function () {

@@ -107,12 +107,15 @@ description : Styles pour single-photos
 /***********section miniature et fleches***********/
 .miniature-container{
     width: 81px;
+    height: 71px;
     display: flex;
     justify-content: center;
+    overflow: hidden;
 }
 
 .miniature-container img{
     width: 100%;
+    height: 100%;
     object-fit: cover;
 }
 

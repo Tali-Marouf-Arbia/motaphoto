@@ -16,7 +16,7 @@ description : Styles pour la modale
     background-color: #fff; 
     z-index: 4;
     padding: 0;
-    animation: fadeIn 3s forwards !important;
+    animation: fadeIn 2s forwards !important;
 }
 
 /* Modal Content */
@@ -80,6 +80,7 @@ input#reference-photo{
 @media screen and (max-width: 850px) {
     .modal {
         width: 286px;
+        height: initial;
     }
 
     #img-modal{
