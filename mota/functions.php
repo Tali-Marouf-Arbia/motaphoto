@@ -1,21 +1,22 @@
 <?php
 
 function enqueue_my_theme_styles() {
-    // Enqueue le fichier principal (style.css)
+    // Enqueue le fichier style.css
     wp_enqueue_style('my-theme-style', get_stylesheet_uri());
-
-    // Enqueue les autres fichiers CSS
-    wp_enqueue_style('page-constr-style', get_template_directory_uri() . '/css/page-constr.css');
-    wp_enqueue_style('vie-privee-style', get_template_directory_uri() . '/css/vie-privee.css');
-    wp_enqueue_style('modale-style', get_template_directory_uri() . '/css/modale.css');
-    wp_enqueue_style('single-photo-style', get_template_directory_uri() . '/css/single-photos.css');
-    wp_enqueue_style('index-style', get_template_directory_uri() . '/css/index.css');
-    wp_enqueue_style('lightbox-style', get_template_directory_uri() . '/css/lightbox.css');
-    wp_enqueue_style('hoverCard-style', get_template_directory_uri() . '/css/hover-card.css');
- 
 }
-
 add_action('wp_enqueue_scripts', 'enqueue_my_theme_styles');
+
+// Enqueue scripts.js
+function enqueue_scripts_js() {
+    wp_enqueue_script('js-script', get_template_directory_uri() . '/scripts.js', array('jquery'), '1.0', true);
+    wp_localize_script('js-script', 'wp_data', array( //transmet wp_data à mon JS
+        'ajax_url' => admin_url('admin-ajax.php')
+    ));
+    wp_localize_script('js-script', 'ajax_object', array( //transmet ajax_object
+        'ajax_url' => admin_url('admin-ajax.php')
+    ));
+}
+add_action('wp_enqueue_scripts', 'enqueue_scripts_js');
 
 // Fonction pour enregistrer mes menus
 function register_my_menus() {
@@ -26,58 +27,16 @@ function register_my_menus() {
         )
     );
 }
-
 // Action pour exécuter la fonction après la configuration du thème
 add_action('after_setup_theme', 'register_my_menus');
-
-// Enqueue mes fichier js 
-function enqueue_custom_scripts() {
-    // Charge le script 'menu.js'
-    wp_enqueue_script('menu-script', get_template_directory_uri() . '/js/menu.js', array(), '1.0', true);
-
-    // Charge le script 'modal.js'
-    wp_enqueue_script('modal-script', get_template_directory_uri() . '/js/modal.js', array(), '1.0', true);
-}
-
-add_action('wp_enqueue_scripts', 'enqueue_custom_scripts', );
-
 
 // Fonction pour ajouter le support des miniatures pour le Custom PT "Photos"
 function add_thumbnail_photos() {
     add_theme_support('post-thumbnails');
     add_image_size('custom-thumbnail', 81, 71, true); //definit la taille des miniatures utilisees ds single-phots
 }
-
 // Ajout de l'action pour exécuter la fonction lors de l'initialisation d'ACF
 add_action('acf/init', 'add_thumbnail_photos');
-
-// Ajout du fichier pagination
-function enqueue_pagination_js() {
-    wp_enqueue_script('pagination', get_template_directory_uri() . '/js/pagination.js', array('jquery'), '', true);
-    wp_localize_script('pagination', 'wp_data', array('ajax_url' => admin_url('admin-ajax.php')));
-}
-add_action('wp_enqueue_scripts', 'enqueue_pagination_js');
-
-// enqueue filtre.js
-function enqueue_filtres() {
-    wp_enqueue_script('filtres-script', get_template_directory_uri() . '/js/filtres.js', array('jquery'), '1.0', true);
-    
-    // Transmettez la variable ajax_url au script
-    wp_localize_script('filtres-script', 'ajax_object', array('ajax_url' => admin_url('admin-ajax.php')));
-}
-
-add_action('wp_enqueue_scripts', 'enqueue_filtres');
-
-// enqueue lightbox.js
-function enqueue_lightbox() {
-    wp_enqueue_script('lightbox-script', get_template_directory_uri() . '/js/lightbox.js', array('jquery'), '1.0', true);
-    
-    // Transmettez la variable ajax_url au script
-    wp_localize_script('lightbox-script', 'ajax_object', array('ajax_url' => admin_url('admin-ajax.php')));
-}
-
-add_action('wp_enqueue_scripts', 'enqueue_lightbox');
-
 
 // fonction de chargement des photos via AJAX
 function load_more_posts() {
@@ -175,7 +134,6 @@ add_action('wp_ajax_nopriv_load_more_posts', 'load_more_posts');
 
 
 // FILTRES
-
 function filter_photos() {
     // Récupération des données POST
     $page = $_POST['page'];

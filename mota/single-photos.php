@@ -107,37 +107,82 @@ get_header();
     </div>
 
     <div class="miniature-aera">
-        <?php
-        // Récupére la miniature du post actuel
-        $thumbnail = get_the_post_thumbnail($post_id, 'custom-thumbnail');
-        $prev_custom_post = get_previous_post();
-        $next_custom_post = get_next_post();
-        $next_post_thumbnail = get_the_post_thumbnail($next_custom_post, 'custom-thumbnail');
-        
-        // Affiche la miniature
-        if (!empty($thumbnail)) {
-            echo '<div class="miniature-container">' . $next_post_thumbnail . '</div>';
-        } else {
-            echo 'Aucune miniature définie.';
+    <?php
+    // Récupére la miniature du post actuel
+    $thumbnail = get_the_post_thumbnail($post_id, 'custom-thumbnail');
+    $prev_custom_post = get_previous_post();
+    $next_custom_post = get_next_post();
+    $next_post_thumbnail = get_the_post_thumbnail($next_custom_post, 'custom-thumbnail');
+    $prev_post_thumbnail = get_the_post_thumbnail($prev_custom_post, 'custom-thumbnail');
+    
+    // Récupération du dernier post des CPT de photos
+    $args = array(
+        'post_type' => 'photos', // Remplacez 'photos' par le nom de votre CPT de photos
+        'posts_per_page' => 1,
+        'orderby' => 'date',
+        'order' => 'DESC'
+    );
+    $latest_photo_post = new WP_Query($args);
+
+    // Si le post précédent n'existe pas, on vérifie s'il y a un dernier post de CPT de photos
+    if (!$prev_custom_post && $latest_photo_post->have_posts()) {
+        $latest_photo_post->the_post();
+        $prev_custom_post = $latest_photo_post->post;
+        // Récupération de la miniature du dernier post de CPT de photos
+        $prev_post_thumbnail = get_the_post_thumbnail($prev_custom_post, 'custom-thumbnail');
+    }
+
+    // Réinitialisation de la variable $prev_custom_post pour éviter des conflits
+    wp_reset_postdata();
+
+    // Si le post suivant n'existe pas, on vérifie et récup le premier post de CPT de photos
+    if (!$next_custom_post) {
+        $args = array(
+            'post_type' => 'photos', 
+            'posts_per_page' => 1,
+            'orderby' => 'date',
+            'order' => 'ASC'
+        );
+        $first_photo_post = new WP_Query($args);
+        if ($first_photo_post->have_posts()) {
+            $first_photo_post->the_post();
+            $next_custom_post = $first_photo_post->post;
+            // Récupération
+            $next_post_thumbnail = get_the_post_thumbnail($next_custom_post, 'custom-thumbnail');
         }
-        ?>
-        <div class="fleches-container">
-            <?php
-            if ($prev_custom_post){
-                $prev_custom_post_link = get_permalink($prev_custom_post);
-                echo '<a href="' . esc_url($prev_custom_post_link) . '"><img src="' . get_template_directory_uri() . '/assets/images/arrow-left.png" alt="photo précédente" class="arrow-left"/></a>';
-            }
+        // Réinitialisation de la variable $next_custom_post pour éviter des conflits
+        wp_reset_postdata();
+    }
 
-            if ($next_custom_post){
-                $next_custom_post_link = get_permalink($next_custom_post);
-                echo '<a href="' . esc_url($next_custom_post_link) . '"><img src="' . get_template_directory_uri() . '/assets/images/arrow-right.png" alt="photo suivante" class="arrow-right"/></a>';
-            }
-            ?>
-        </div>
+    // Affiche la miniature
+    if (!empty($thumbnail)) {
+        echo '<div class="miniature-container">' . $next_post_thumbnail . '</div>';
+    } else {
+        echo 'Aucune miniature définie.';
+    }
+    ?>
+<div class="fleches-container">
+    <?php
+    if ($prev_custom_post){
+        $prev_custom_post_link = get_permalink($prev_custom_post);
+        echo '<a href="' . esc_url($prev_custom_post_link) . '"><img src="' . get_template_directory_uri() . '/assets/images/arrow-left.png" alt="photo précédente" class="arrow-left"/></a>';
+    } else {
+        echo '<a><img src="' . get_template_directory_uri() . '/assets/images/arrow-left.png" alt="photo précédente" class="arrow-left"/></a>';
+    }
+
+    if ($next_custom_post){
+        $next_custom_post_link = get_permalink($next_custom_post);
+        echo '<a href="' . esc_url($next_custom_post_link) . '"><img src="' . get_template_directory_uri() . '/assets/images/arrow-right.png" alt="photo suivante" class="arrow-right"/></a>';
+    } else {
+        echo '<a><img src="' . get_template_directory_uri() . '/assets/images/arrow-right.png" alt="photo suivante" class="arrow-right"/></a>';
+    }
+    ?>
     </div>
-  </div>
 
-  <div class="autre-post-aera">
+    </div>
+</div>
+
+<div class="autre-post-aera">
     <div>
         <h3 class="autre-post-title">VOUS AIMEREZ AUSSI</h3>
     </div>
@@ -160,8 +205,6 @@ var nextThumbnailUrl = '<?php echo $next_custom_post ? get_the_post_thumbnail_ur
 // Précharger les images
 var prevThumbnailImage = new Image();
 prevThumbnailImage.src = prevThumbnailUrl;
-var nextThumbnailImage = new Image();
-nextThumbnailImage.src = nextThumbnailUrl;
 
 // Fonction pour afficher la miniature au survol de la flèche précédente
 document.querySelector('.arrow-left').addEventListener('mouseenter', function() {
@@ -170,20 +213,13 @@ document.querySelector('.arrow-left').addEventListener('mouseenter', function() 
     }
 });
 
-// Fonction pour afficher la miniature au survol de la flèche suivante
-document.querySelector('.arrow-right').addEventListener('mouseenter', function() {
-    if (nextThumbnailUrl) {
-        document.querySelector('.miniature-container').innerHTML = '<img src="' + nextThumbnailUrl + '" alt="photo suivante" />';
-    }
-});
-
 // Fonction pour réinitialiser la miniature à son état initial lorsque la souris quitte la flèche
-document.querySelectorAll('.arrow-left, .arrow-right').forEach(function(arrow) {
+document.querySelectorAll('.arrow-left').forEach(function(arrow) {
     arrow.addEventListener('mouseleave', function() {
         document.querySelector('.miniature-container').innerHTML = '<?php echo !empty($thumbnail) ? '<div class="miniature-container">' . $next_post_thumbnail . '</div>' : 'Aucune miniature définie.'; ?>';
     });
-});
-});
+}); 
+}); 
   </script>
 
 <!-- script js responsable de la gestion du hover sur les photos apparentées page de photo unique -->
