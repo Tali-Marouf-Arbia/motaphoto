@@ -214,8 +214,8 @@ if ($query->have_posts()) :
         $accueil_thumbnail_id = get_post_thumbnail_id($accueil_post_id);
         $accueil_thumbnail_src = wp_get_attachment_image_src($accueil_thumbnail_id, 'large');
         
-        // Vérification de la non-nullité de $query (c'est probablement une erreur, car $query est une requête et non un tableau)
-        if (!empty($query)) {
+        
+        // if (!empty($query)) { c est une requete pas un tab 
             $tableau[] = ['thumbnail' => $accueil_thumbnail_src[0], 'category' => strip_tags(get_the_term_list(get_the_ID(), 'category')), 'reference' => get_field('reference')];
             if($format_sortie != 'Json'){
                 // Affichage du bloc de photo avec des détails
@@ -237,7 +237,7 @@ if ($query->have_posts()) :
                     . '</a>'
                     . '</div>';
             }
-        }
+        // }
     endwhile;
     // Réinitialisation des données de post
     wp_reset_postdata();

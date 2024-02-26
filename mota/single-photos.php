@@ -69,7 +69,7 @@ get_header();
                     }
                 } else {
                     // Afficher un message si aucun terme n'est trouvé
-                    echo 'Aucune référence définie pour cet article.';
+                    echo 'Aucun format défini pour cet article.';
                 }
                 ?>
             </p>
@@ -81,7 +81,7 @@ get_header();
                 if ($type) {
                     echo $type;
                 } else {
-                    echo 'Aucune référence définie pour cet article.';
+                    echo 'Aucun type défini pour cet article.';
                 }
                 ?>
             </p>
